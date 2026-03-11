@@ -14,6 +14,9 @@
             --card-bg: #1e293b;
             --glass-orange: rgba(251, 146, 60, 0.1);
             --glass-border: rgba(251, 146, 60, 0.3);
+            /* New balanced radius variables */
+            --radius-round: 24px;
+            --radius-soft-square: 6px;
         }
 
         body {
@@ -39,7 +42,7 @@
 
         .search-container {
             position: relative;
-            max-width: 300px;
+            max-width: 350px;
             margin: 1.5rem auto;
         }
 
@@ -47,10 +50,10 @@
             width: 100%;
             background: rgba(30, 41, 59, 0.7);
             border: 1px solid var(--glass-border);
-            border-radius: 4px;
-            padding: 10px 40px 10px 15px;
+            border-radius: 9999px;
+            padding: 12px 45px 12px 20px;
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
             outline: none;
         }
@@ -63,7 +66,7 @@
 
         .search-icon {
             position: absolute;
-            right: 12px;
+            right: 18px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--accent-orange);
@@ -72,12 +75,14 @@
 
         .card-3d {
             background: var(--card-bg);
-            border-radius: 4px;
+            border-radius: 16px;
             border: 1px solid var(--glass-border);
             position: relative;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            --category-color: var(--accent-orange);
+            --category-glow: rgba(251, 146, 60, 0.25);
         }
 
         .card-3d::before {
@@ -87,20 +92,21 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent);
+            background: linear-gradient(90deg, transparent, var(--category-color), transparent);
             transform: translateX(-100%);
             transition: 0.5s;
         }
 
         .card-3d:hover {
             transform: translateY(-10px);
-            box-shadow: 0 0 30px rgba(251, 146, 60, 0.25);
-            border-color: var(--accent-yellow);
+            box-shadow: 0 0 30px var(--category-glow);
+            border-color: var(--category-color);
             background: #2d3748;
         }
 
         .card-3d:hover::before { transform: translateX(100%); }
 
+        /* Balanced Diagonal Button Shape */
         .glass-btn {
             background: var(--glass-orange);
             backdrop-filter: blur(12px);
@@ -109,6 +115,8 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            /* TL, TR, BR, BL - making TL and BR more rounded, TR and BL soft-square */
+            border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important;
         }
 
         .glass-btn:hover {
@@ -118,10 +126,9 @@
         }
 
         .filter-btn {
-            padding: 10px 12px;
-            border-radius: 4px;
+            padding: 10px 22px;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
@@ -132,6 +139,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            --hover-color: var(--accent-orange);
+            /* Balanced Diagonal radius */
+            border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--hover-color) !important;
+            border-color: var(--hover-color) !important;
+            color: black !important;
+            box-shadow: 0 0 15px var(--hover-color);
         }
 
         .filter-btn::after {
@@ -169,6 +186,7 @@
             width: 100%;
             padding: 2.5rem;
             border: 2px solid var(--accent-orange);
+            border-radius: 24px;
             box-shadow: 0 0 50px rgba(251, 146, 60, 0.2);
             position: relative;
             animation: emerge 0.3s ease-out;
@@ -179,10 +197,10 @@
         .category-chip {
             font-size: 0.7rem;
             font-weight: bold;
-            padding: 4px 10px;
+            padding: 4px 14px;
             margin-bottom: 1rem;
             display: inline-block;
-            border-radius: 4px;
+            border-radius: 8px;
             border-right-width: 3px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -194,9 +212,12 @@
 <body class="p-4 md:p-8">
 
     <header class="max-w-6xl mx-auto mb-12 text-center">
+        <!-- School Logo -->
+        <img src="media/logo.png" alt="לוגו אורט שחקים" class="h-20 md:h-28 w-auto mx-auto mb-6 drop-shadow-[0_0_15px_rgba(251,146,60,0.3)]" onerror="this.style.display='none'">
+        
         <h1 class="text-3xl md:text-5xl font-bold mb-2 futuristic-title text-white text-wrap">ארגז הכלים של שחקים</h1>
         <div class="search-container">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="searchInput" class="search-input" placeholder="חיפוש כלי..." oninput="handleSearch()">
         </div>
         <p class="text-white text-lg opacity-90">כלים טכנופדגוגיים חכמים להוראה</p>
@@ -218,7 +239,7 @@
 
     <div id="infoModal" class="modal-overlay">
         <div class="modal-content text-right">
-            <span class="absolute top-4 left-4 cursor-pointer text-slate-500 hover:text-[#fb923c]" onclick="closeModal()">
+            <span class="absolute top-4 left-4 cursor-pointer text-slate-500 hover:text-[#fb923c] transition-colors" onclick="closeModal()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </span>
             <h2 id="modalTitle" class="text-2xl font-bold mb-6 text-[#fb923c]">מה אפשר לעשות עם זה?</h2>
@@ -235,6 +256,7 @@
             { id: 3, title: "Mentimeter", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1ocybR8PcGro2Ue6GyS4a8FgwhDWB9Gzx/view?usp=sharing", siteUrl: "https://www.mentimeter.com", description: "מצגות אינטראקטיביות לשיתוף קהל וקבלת משוב חי במגוון סקרים.", info: "באמצעות Mentimeter תוכלו ליצור ענני מילים, סקרי קהל חיים ובחנים מהנים בזמן אמת." },
             { id: 4, title: "Canva", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1cDj4dBegxxz_0x3Q0n4_QaefX196Gqy8/view?usp=sharing", siteUrl: "https://www.canva.com", description: "פלטפורמת עיצוב גרפי ליצירת מצגות, כרזות ותוכן ויזואלי.", info: "באמצעות Canva תוכלו לעצב מצגות מרהיבות ודפי עבודה בקלות וביעילות.", guideUrl: "https://www.canva.com/design/DAFRIjc8RoE/ByM_PVHabX08_95vrE-03A/view?utm_content=DAFRIjc8RoE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc086b04346" },
             { id: 18, title: "Photopea", category: "עיצוב ויצירה", driveUrl: "", siteUrl: "https://www.photopea.com", description: "עורך תמונות מקצועי וחינמי בדפדפן, תואם פוטושופ ותומך בעברית.", info: "Photopea הוא כלי עוצמתי לעריכת תמונות בשכבות, תמיכה בקבצי PSD ויכולות עיצוב מתקדמות ללא עלות." },
+            { id: 33, title: "Figma", category: "עיצוב ויצירה", driveUrl: "", siteUrl: "https://www.figma.com", description: "פלטפורמה מקצועית לעיצוב ממשקים (UI/UX) ושיתוף פעולה ויזואלי בזמן אמת.", info: "Figma היא הכלי המוביל בעולם לעיצוב מוצרים דיגיטליים. היא מאפשרת עבודה משותפת על אותו קובץ בו-זמנית, יצירת אבות-טיפוס אינטראקטיביים ושימוש בלוח שיתופי לסיעור מוחות." },
             { id: 31, title: "Tinkercad", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1ZbsYfD5GEP298ccEJWdb3UdsPKDGjsyD/view?usp=sharing", siteUrl: "https://www.tinkercad.com", description: "פלטפורמה לתכנון בתלת-ממד ועיצוב מעגלים אלקטרוניים.", info: "באמצעות Tinkercad תוכלו לתכנן מודלים תלת-ממדיים לסרטוט והדפסה וללמד יסודות הנדסיים בצורה אינטראקטיבית." },
             { id: 6, title: "Genially", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/11lWrpl9ZwvyuED-13lEyh06SIAOHTaAx/view?usp=sharing", siteUrl: "https://genial.ly", description: "יצירת מצגות, משחקים ואינפוגרפיקות אינטראקטיביות.", info: "Genially מאפשר בניית חדרי בריחה דיגיטליים, מצגות מונפשות ואינפוגרפיקות עשירות במידע." },
             { id: 5, title: "Kahoot!", category: "משחוק", driveUrl: "https://drive.google.com/file/d/1v5jVMrb3jEtjNpRVX7Qs8eDKrtb5zij8/view?usp=sharing", siteUrl: "https://kahoot.com", description: "הפוך למידה למשחק דרך חידונים תחרותיים.", info: "באמצעות Kahoot! תוכלו ליצור חידונים מהירים ולערוך תחרויות קבוצתיות בכיתה." },
@@ -244,9 +266,9 @@
             { id: 20, title: "Flippity", category: "משחוק", driveUrl: "", siteUrl: "https://www.flippity.net", description: "הפוך גליונות גוגל למשחקים כמו גלגלי מזל וחדרי בריחה בקלות.", info: "Flippity תומך בעברית מלאה דרך גליון הנתונים ומציע תבניות למשחקי לוח דיגיטליים." },
             { id: 10, title: "Wordwall", category: "משחוק", driveUrl: "", siteUrl: "https://wordwall.net", description: "יצירת פעילויות מותאמות אישית במגוון תבניות משחק.", info: "Wordwall מאפשר להפוך רשימות מושגים למשחקים כמו גלגל מזל או מבוך בלחיצת כפור." },
             { id: 11, title: "Classroomscreen", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1pJDqx_K1ZKV-bEtRGHj6Sx8YUgcwuwC6/view?usp=sharing", siteUrl: "https://classroomscreen.com", description: "ניהול מסך הכיתה עם כלים כמו טיימר, רמות רעש וקודי QR.", info: "הכלי מרכז את כל מה שמורה צריך על המסך לניהול אפקטיבי של השיעור." },
-            { id: 32, title: "Classe", category: "שיתופיות", driveUrl: "", siteUrl: "https://www.classe.world", description: "מערכת לניהול כיתה חכם, הכוללת מפות הושבה דינמיות וניהול למידה.", info: "Classe עוזרת למורים לארגן את הכיתה בצורה מיטבית, לנהל משימות, לעקוב אחר התקדמות ולחלק את התלמידים לקבוצות עבודה בלחיצת כפור." },
+            { id: 32, title: "Classe", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1-A4JjSMc5G3XhFszhUiPaEdp7V0P7UZh/view?usp=sharing", siteUrl: "https://www.classe.world", description: "מערכת לניהול כיתה חכם, הכוללת מפות הושבה דינמיות וניהול למידה.", info: "Classe עוזרת למורים לארגן את הכיתה בצורה מיטבית, לנהל משימות, לעקוב אחר התקדמות ולחלק את התלמידים לקבוצות עבודה בלחיצת כפור." },
             { id: 7, title: "remove.bg", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://www.remove.bg", description: "הסרת רקע מתמונות בתוך שניות בעזרת בינה מלאכותית.", info: "כלי חיוני להכנת תמונות נקיות ושקופות לשימוש במצגות וכרזות." },
-            { id: 8, title: "iLovePDF", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1KOA268-vL0hoBkxBhtFtyqWitg5Oz5kY/view?usp=sharing", siteUrl: "https://www.ilovepdf.com", description: "סט כלים לניהול, המרה ועריכת קבצי PDF בקלות.", info: "באמצעות iLovePDF תוכלו למזג, לפצל ולדחוס קבצי PDF בצורה מהירה." },
+            { id: 8, title: "iLovePDF", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1KOA268-vL0hoBkxBhtFtyqWitg5Oz5kY/view?usp=sharing", siteUrl: "https://www.ilovepdf.com", description: "סט כלים לניהול, המרה ועריכת קבצי PDF בקלות.", info: "באמצעות iLovePDF תוכלו למזג, לפצל ולדחוס קבצים בצורה מהירה." },
             { id: 28, title: "123Apps", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://123apps.com/", description: "סט כלים מקוון לעריכת וידאו, אודיו וניהול PDF ללא צורך בהתקנה.", info: "123Apps מאפשר חיתוך וסיבוב סרטונים, שינוי עוצמת קול, והמרת קבצים בצורה פשוטה ומהירה." },
             { id: 30, title: "TinyWow", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://tinywow.com/", description: "מאות כלים חינמיים לטיפול בקבצים, תמונות, וידאו וכלי כתיבה במקום אחד.", info: "TinyWow מציע פתרונות מהירים לכל בעיה טכנית: הסרת עצמים מתמונות, המרת פורמטים ועוד." },
             { id: 9, title: "Pixabay", category: "מאגרי מדיה", driveUrl: "", siteUrl: "https://pixabay.com", description: "מאגר תמונות וסרטונים לשימוש חופשי וללא זכויות יוצרים.", info: "Pixabay מספק גישה למדיה איכותית לכל נושא לימודי ללא חשש מהפרת זכויות." },
@@ -260,14 +282,14 @@
         let searchQuery = '';
 
         const categoryStyles = {
-            'שיתופיות': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(34,211,238,0.5)]' },
-            'אינטראקטיביות': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.5)]' },
-            'עיצוב ויצירה': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-rose-500 text-black shadow-[0_0_15px_rgba(244,63,94,0.5)]' },
-            'משחוק': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-indigo-500 text-black shadow-[0_0_15px_rgba(99,102,241,0.5)]' },
-            'כלים שעושים חיים קלים': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.5)]' },
-            'מאגרי מדיה': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-fuchsia-500 text-black shadow-[0_0_15px_rgba(217,70,239,0.5)]' },
-            'הכל': { base: 'bg-slate-700/40 text-slate-300', active: 'bg-slate-200 text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]' },
-            'default': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-orange-500 text-black' }
+            'שיתופיות': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(34,211,238,0.5)]', color: '#22d3ee' },
+            'אינטראקטיביות': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.5)]', color: '#10b981' },
+            'עיצוב ויצירה': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-rose-500 text-black shadow-[0_0_15px_rgba(244,63,94,0.5)]', color: '#f43f5e' },
+            'משחוק': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-indigo-500 text-black shadow-[0_0_15px_rgba(99,102,241,0.5)]', color: '#6366f1' },
+            'כלים שעושים חיים קלים': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.5)]', color: '#f59e0b' },
+            'מאגרי מדיה': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-fuchsia-500 text-black shadow-[0_0_15px_rgba(217,70,239,0.5)]', color: '#d946ef' },
+            'הכל': { base: 'bg-slate-700/40 text-slate-300', active: 'bg-slate-200 text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]', color: '#ffffff' },
+            'default': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-orange-500 text-black', color: '#fb923c' }
         };
 
         function getCategoryStyle(category, isActive = false) {
@@ -279,7 +301,13 @@
             const categories = ['הכל', ...new Set(presentations.map(p => p.category))];
             filterBar.innerHTML = categories.map(cat => {
                 const isActive = activeCategory === cat;
-                return `<button onclick="setFilter('${cat}')" class="filter-btn w-full md:w-auto ${getCategoryStyle(cat, isActive)}">${cat} <span class="mr-1 opacity-60 text-[0.7rem]">(${cat === 'הכל' ? presentations.length : presentations.filter(p => p.category === cat).length})</span></button>`;
+                const style = categoryStyles[cat] || categoryStyles['default'];
+                return `<button 
+                    onclick="setFilter('${cat}')" 
+                    class="filter-btn w-full md:w-auto ${getCategoryStyle(cat, isActive)}"
+                    style="--hover-color: ${style.color}">
+                    ${cat} <span class="mr-1 opacity-60 text-[0.7rem]">(${cat === 'הכל' ? presentations.length : presentations.filter(p => p.category === cat).length})</span>
+                </button>`;
             }).join('');
         }
 
@@ -295,23 +323,28 @@
                 return;
             }
 
-            grid.innerHTML = filtered.map(p => `
-                <div class="card-3d p-8 flex flex-col justify-between">
+            grid.innerHTML = filtered.map(p => {
+                const style = categoryStyles[p.category] || categoryStyles['default'];
+                const glowColor = style.color + '40'; 
+                
+                return `
+                <div class="card-3d p-8 flex flex-col justify-between" style="--category-color: ${style.color}; --category-glow: ${glowColor};">
                     <div>
-                        <div class="category-chip ${getCategoryStyle(p.category, true).split('shadow')[0]}">${p.category}</div>
+                        <div class="category-chip ${style.active.split('shadow')[0].replace('text-black', '')}">${p.category}</div>
                         <h3 class="text-2xl font-bold mb-4 text-white">${p.title}</h3>
                         <p class="text-white text-base mb-10 leading-relaxed">${p.description}</p>
                     </div>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-4">
                         <div class="grid grid-cols-2 gap-3">
-                            <button onclick="openModal(${p.id})" class="glass-btn py-3 px-2 rounded font-bold text-xs text-center">מידע ושימושים</button>
-                            <a href="${p.siteUrl}" target="_blank" class="glass-btn py-3 px-2 rounded font-bold text-xs text-center flex items-center justify-center">כניסה לאתר</a>
+                            <button onclick="openModal(${p.id})" class="glass-btn py-3 px-2 font-bold text-xs text-center">מידע ושימושים</button>
+                            <a href="${p.siteUrl}" target="_blank" class="glass-btn py-3 px-2 font-bold text-xs text-center flex items-center justify-center">כניסה לאתר</a>
                         </div>
-                        ${p.guideUrl ? `<a href="${p.guideUrl}" target="_blank" class="glass-btn py-3 px-4 rounded text-center text-xs transition-all font-bold tracking-wider border-orange-500/50 text-orange-400 hover:bg-orange-500/20">מדריך לקבלת חשבון חינוך</a>` : ''}
-                        ${p.driveUrl ? `<a href="${p.driveUrl}" target="_blank" class="bg-orange-500 hover:bg-yellow-500 text-black py-3 px-4 rounded text-center text-xs transition-all font-black uppercase shadow-[0_0_15px_rgba(249,115,22,0.4)]">צפייה במצגת ההדרכה</a>` : ''}
+                        ${p.guideUrl ? `<a href="${p.guideUrl}" target="_blank" class="glass-btn py-3 px-4 font-bold text-center text-xs tracking-wider border-orange-500/50 text-orange-400 hover:bg-orange-500/20" style="border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important;">מדריך לקבלת חשבון חינוך</a>` : ''}
+                        ${p.driveUrl ? `<a href="${p.driveUrl}" target="_blank" class="bg-orange-500 hover:bg-yellow-500 text-black py-3 px-4 text-center text-xs transition-all font-black uppercase shadow-[0_0_15px_rgba(249,115,22,0.4)]" style="border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important;">צפייה במצגת ההדרכה</a>` : ''}
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         function openModal(id) { const p = presentations.find(item => item.id === id); document.getElementById('modalBody').innerText = p.info; document.getElementById('infoModal').style.display = 'flex'; }
