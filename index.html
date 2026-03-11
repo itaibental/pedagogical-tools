@@ -40,25 +40,56 @@
             z-index: 10;
         }
 
-        .google-btn {
-            background: white;
-            color: #374151;
-            font-weight: bold;
-            padding: 12px 24px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            transition: all 0.3s ease;
-            border: 1px solid #d1d5db;
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
         }
 
-        .google-btn:hover:not(:disabled) {
-            background: #f9fafb;
+        .input-label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .main-input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .main-input:focus {
+            border-color: var(--accent-orange);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .enter-btn {
+            background: var(--accent-orange);
+            color: white;
+            font-weight: bold;
+            padding: 14px 24px;
+            border-radius: 4px;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+
+        .enter-btn:hover:not(:disabled) {
+            background: #f97316;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(251, 146, 60, 0.3);
+        }
+
+        .enter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .admin-section {
@@ -77,10 +108,6 @@
             text-align: center;
             outline: none;
             transition: border-color 0.3s;
-        }
-
-        .admin-input:focus {
-            border-color: var(--accent-orange);
         }
 
         .error-box {
@@ -104,7 +131,6 @@
             display: none;
         }
 
-        /* Welcome Overlay */
         #welcomeOverlay {
             position: fixed;
             top: 0;
@@ -128,16 +154,22 @@
 
     <div class="login-card">
         <h1 class="text-3xl font-bold mb-2 text-white uppercase italic tracking-wider">שחקים TOOLBOX</h1>
-        <p class="text-slate-400 mb-8">המערכת מיועדת לצוות אורט שחקים בלבד</p>
+        <p class="text-slate-400 mb-8">זיהוי משתמש ארגוני</p>
         
         <div id="errorMessage" class="error-box text-right"></div>
 
-        <button id="loginBtn" class="google-btn">
-            <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.712s.102-1.173.282-1.712V4.956H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.044l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.582C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.956L3.964 7.288c.708-2.127 2.692-3.708 5.036-3.708z"/></svg>
-            התחברות עם חשבון גוגל
-        </button>
+        <div class="input-group">
+            <label class="input-label">מהו שמך?</label>
+            <input type="text" id="userName" class="main-input" placeholder="הכנס שם מלא">
+        </div>
 
-        <!-- Admin Bypass Section -->
+        <div class="input-group">
+            <label class="input-label">מהו הדומיין של החשבון הארגוני של בית הספר?</label>
+            <input type="text" id="domainAnswer" class="main-input" placeholder="לדוגמה: domain.com">
+        </div>
+
+        <button id="submitBtn" class="enter-btn">כניסה למערכת</button>
+
         <div class="admin-section">
             <p class="text-xs text-slate-500 mb-3">כניסת מנהל (מעקף קוד)</p>
             <div class="flex gap-2 justify-center items-center">
@@ -151,7 +183,6 @@
         </div>
     </div>
 
-    <!-- Welcome Message Modal -->
     <div id="welcomeOverlay">
         <h2 id="welcomeName" class="text-4xl font-bold text-white mb-4">שלום</h2>
         <p class="text-orange-400 text-xl">מיד תועבר לארגז הכלים...</p>
@@ -160,7 +191,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -175,92 +206,72 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-        const ALLOWED_DOMAIN = "sn.ort.org.il";
         const appId = "pedagogical-tools";
+        const CORRECT_DOMAIN = "sn.ort.org.il";
 
-        const loginBtn = document.getElementById('loginBtn');
+        const submitBtn = document.getElementById('submitBtn');
         const adminLoginBtn = document.getElementById('adminLoginBtn');
         const adminCodeInput = document.getElementById('adminCode');
+        const userNameInput = document.getElementById('userName');
+        const domainInput = document.getElementById('domainAnswer');
         const errorMessage = document.getElementById('errorMessage');
         const loader = document.getElementById('loader');
         const welcomeOverlay = document.getElementById('welcomeOverlay');
         const welcomeName = document.getElementById('welcomeName');
 
-        adminLoginBtn.addEventListener('click', () => {
+        const initAuth = async () => {
+            try { await signInAnonymously(auth); } catch (err) { console.error("Auth init failed", err); }
+        };
+        initAuth();
+
+        adminLoginBtn.addEventListener('click', async () => {
             if (adminCodeInput.value === '1234') {
+                loader.style.display = 'block';
+                await logVisit("מנהל מערכת", "Admin Bypass");
                 showGreeting("מנהל מערכת");
             } else {
                 showError("קוד שגוי. נסה שוב.");
             }
         });
 
-        async function logVisit(user) {
+        async function logVisit(name, method) {
+            if (!auth.currentUser) return;
             try {
                 const logRef = collection(db, 'artifacts', appId, 'public', 'data', 'user_logins');
                 await addDoc(logRef, {
-                    name: user.displayName || 'Anonymous Admin',
-                    email: user.email || 'Admin Bypass',
+                    name: name,
+                    method: method,
                     timestamp: serverTimestamp(),
-                    uid: user.uid
+                    uid: auth.currentUser.uid
                 });
-            } catch (e) {
-                console.error("Firestore Log Error:", e);
-            }
+            } catch (e) { console.error("Firestore Logging Failed:", e); }
         }
 
         function showGreeting(name) {
             welcomeName.innerText = `שלום ${name}`;
             welcomeOverlay.style.display = 'flex';
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = 'dashboard.html'; // מעבר לקובץ המאגר המעודכן
             }, 2000);
         }
 
-        async function handleLogin() {
+        async function handleSubmit() {
             errorMessage.style.display = 'none';
-            loginBtn.disabled = true;
+            const name = userNameInput.value.trim();
+            const answer = domainInput.value.trim().toLowerCase();
+            if (!name) { showError("אנא הכנס את שמך."); return; }
+            if (answer !== CORRECT_DOMAIN) { showError("הדומיין שהוזן אינו נכון. אנא נסה שוב."); return; }
             loader.style.display = 'block';
-
-            try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-
-                if (user.email && (user.email.endsWith(`@${ALLOWED_DOMAIN}`) || user.email === "itaybt@gmail.com")) {
-                    await logVisit(user);
-                    showGreeting(user.displayName || "משתמש");
-                } else {
-                    showError(`גישה נדחתה. עליך להתחבר עם חשבון ${ALLOWED_DOMAIN} בלבד.`);
-                    await signOut(auth);
-                    resetUI();
-                }
-            } catch (error) {
-                console.error("Auth Error:", error);
-                // הצגת קוד השגיאה המדויק למשתמש לצורך דיבאג
-                let msg = "התחברות נכשלה.";
-                if (error.code === 'auth/unauthorized-domain') {
-                    msg = "שגיאה: הדומיין אינו מורשה ב-Firebase Console.";
-                } else if (error.code === 'auth/popup-closed-by-user') {
-                    msg = "החלון נסגר לפני השלמת ההתחברות.";
-                } else {
-                    msg += ` (קוד: ${error.code})`;
-                }
-                showError(msg);
-                resetUI();
-            }
-        }
-
-        function resetUI() {
-            loginBtn.disabled = false;
-            loader.style.display = 'none';
+            submitBtn.disabled = true;
+            await logVisit(name, "Domain Question");
+            showGreeting(name);
         }
 
         function showError(msg) {
             errorMessage.innerHTML = msg;
             errorMessage.style.display = 'block';
         }
-
-        loginBtn.addEventListener('click', handleLogin);
+        submitBtn.addEventListener('click', handleSubmit);
     </script>
 </body>
 </html>
