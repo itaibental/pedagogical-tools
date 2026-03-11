@@ -19,8 +19,7 @@
         body {
             font-family: 'Assistant', sans-serif;
             background-color: var(--bg-deep);
-            background-image: 
-                linear-gradient(to bottom, rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 1)),
+            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 1)),
                 url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
             color: #f8fafc;
             min-height: 100vh;
@@ -105,7 +104,6 @@
         .glass-btn {
             background: var(--glass-orange);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             color: var(--accent-yellow);
             transition: all 0.3s ease;
@@ -197,12 +195,10 @@
 
     <header class="max-w-6xl mx-auto mb-12 text-center">
         <h1 class="text-3xl md:text-5xl font-bold mb-2 futuristic-title text-white text-wrap">ארגז הכלים של שחקים</h1>
-        
         <div class="search-container">
             <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="searchInput" class="search-input" placeholder="חיפוש כלי..." oninput="handleSearch()">
         </div>
-
         <p class="text-white text-lg opacity-90">כלים טכנופדגוגיים חכמים להוראה</p>
     </header>
 
@@ -214,9 +210,7 @@
 
     <footer class="w-full py-8 mt-12 text-center">
         <div class="max-w-6xl mx-auto px-4">
-            <p class="text-slate-500 text-sm tracking-widest uppercase mb-1">
-                המאגר נוצר ע"י <span class="text-[#fb923c] font-bold">איתי בן טל</span>
-            </p>
+            <p class="text-slate-500 text-sm tracking-widest uppercase mb-1">המאגר נוצר ע"י <span class="text-[#fb923c] font-bold">איתי בן טל</span></p>
             <p class="text-slate-500 text-xs tracking-widest uppercase">אורט שחקים נהריה</p>
             <div class="mt-4 w-16 h-0.5 bg-[#fb923c] mx-auto opacity-30"></div>
         </div>
@@ -224,7 +218,7 @@
 
     <div id="infoModal" class="modal-overlay">
         <div class="modal-content text-right">
-            <span class="absolute top-4 left-4 cursor-pointer text-slate-500 hover:text-[#fb923c] transition-colors" onclick="closeModal()">
+            <span class="absolute top-4 left-4 cursor-pointer text-slate-500 hover:text-[#fb923c]" onclick="closeModal()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </span>
             <h2 id="modalTitle" class="text-2xl font-bold mb-6 text-[#fb923c]">מה אפשר לעשות עם זה?</h2>
@@ -235,142 +229,27 @@
 
     <script>
         const presentations = [
-            {
-                id: 1, title: "Padlet", category: "שיתופיות",
-                driveUrl: "https://drive.google.com/file/d/1EJkXEIy4E1De2FD1pdPY8Ux9jPEQIHe5/view?usp=sharing",
-                siteUrl: "https://padlet.com",
-                description: "לוח קיר דיגיטלי לריכוז רעיונות ותוצרים ויזואליים בזמן אמת.",
-                info: "באמצעות Padlet תוכלו לנהל סיעור מוחות כיתתי, לאפשר לתלמידים להגיב זה לזה ולהטמיע מדיה עשירה."
-            },
-            {
-                id: 2, title: "ThingLink", category: "אינטראקטיביות",
-                driveUrl: "https://drive.google.com/file/d/1_TS0ZEg3vJW2uPbbnO12vneIdTavgLz6/view?usp=sharing",
-                siteUrl: "https://www.thinglink.com",
-                description: "הפוך כל תמונה או סרטון למפת למידה אינטראקטיבית עם נקודות מידע.",
-                info: "באמצעות ThingLink תוכלו להוסיף 'נקודות חמות' על תמונות, ליצור סיורים וירטואליים ולשלב קריינות וטקסט."
-            },
-            {
-                id: 27, title: "אורט קמפוס", category: "אינטראקטיביות",
-                driveUrl: "", siteUrl: "https://campus.ort.org.il/",
-                description: "הקמפוס הווירטואלי של רשת אורט. פלטפורמה לניהול למידה וקורסים דיגיטליים.",
-                info: "אורט קמפוס מאפשר גישה למגוון קורסים דיגיטליים, ניהול משימות והערכה בתוך רשת אורט ישראל."
-            },
-            {
-                id: 3, title: "Mentimeter", category: "שיתופיות",
-                driveUrl: "https://drive.google.com/file/d/1ocybR8PcGro2Ue6GyS4a8FgwhDWB9Gzx/view?usp=sharing", 
-                siteUrl: "https://www.mentimeter.com",
-                description: "מצגות אינטראקטיביות לשיתוף קהל וקבלת משוב חי במגוון סקרים.",
-                info: "באמצעות Mentimeter תוכלו ליצור ענני מילים, סקרי קהל חיים ובחנים מהנים בזמן אמת."
-            },
-            {
-                id: 4, title: "Canva", category: "עיצוב ויצירה",
-                driveUrl: "https://drive.google.com/file/d/1cDj4dBegxxz_0x3Q0n4_QaefX196Gqy8/view?usp=sharing", 
-                siteUrl: "https://www.canva.com",
-                guideUrl: "https://www.canva.com/design/DAFRIjc8RoE/ByM_PVHabX08_95vrE-03A/view?utm_content=DAFRIjc8RoE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc086b04346",
-                description: "פלטפורמת עיצוב גרפי ליצירת מצגות, כרזות ותוכן ויזואלי מקצועי.",
-                info: "באמצעות Canva תוכלו לעצב מצגות מרהיבות, כרזות ודפי עבודה בקלות וביעילות."
-            },
-            {
-                id: 18, title: "Photopea", category: "עיצוב ויצירה",
-                driveUrl: "", siteUrl: "https://www.photopea.com",
-                description: "עורך תמונות מקצועי וחינמי בדפדפן, תואם פוטושופ ותומך בעברית.",
-                info: "Photopea הוא כלי עוצמתי לעריכת תמונות בשכבות, תמיכה בקבצי PSD ויכולות עיצוב מתקדמות ללא עלות."
-            },
-            {
-                id: 31, title: "Tinkercad", category: "עיצוב ויצירה",
-                driveUrl: "https://drive.google.com/file/d/1ZbsYfD5GEP298ccEJWdb3UdsPKDGjsyD/view?usp=sharing", 
-                siteUrl: "https://www.tinkercad.com",
-                description: "פלטפורמה חינמית ומקוונת לסרטוט הנדסי, תכנון בתלת-ממד ועיצוב מעגלים אלקטרוניים.",
-                info: "באמצעות Tinkercad תוכלו:\n• לתכנן מודלים תלת-ממדיים לסרטוט והדפסה.\n• לבנות ולדמות מעגלים אלקטרוניים (Arduino).\n• ללמד יסודות הנדסיים בצורה אינטראקטיבית.\n• לנהל כיתות וירטואליות למעקב אחר תוצרי התלמידים."
-            },
-            {
-                id: 6, title: "Genially", category: "אינטראקטיביות",
-                driveUrl: "https://drive.google.com/file/d/11lWrpl9ZwvyuED-13lEyh06SIAOHTaAx/view?usp=sharing", 
-                siteUrl: "https://genial.ly",
-                description: "יצירת מצגות, משחקים ואינפוגרפיקות אינטראקטיביות שמעוררות את התוכן לחיים.",
-                info: "Genially מאפשר בניית חדרי בריחה דיגיטליים, מצגות מונפשות ואינפוגרפיקות עשירות במידע."
-            },
-            {
-                id: 5, title: "Kahoot!", category: "משחוק",
-                driveUrl: "https://drive.google.com/file/d/1v5jVMrb3jEtjNpRVX7Qs8eDKrtb5zij8/view?usp=sharing", 
-                siteUrl: "https://kahoot.com",
-                description: "הפוך למידה למשחק דרך חידונים תחרותיים המגבירים את המעורבות בכיתה.",
-                info: "באמצעות Kahoot! תוכלו ליצור חידונים מהירים, לערוך תחרויות קבוצתיות ולקבל דוחות ביצועים."
-            },
-            {
-                id: 13, title: "Quizizz", category: "משחוק",
-                driveUrl: "", siteUrl: "https://quizizz.com",
-                description: "חידונים בקצב אישי הכוללים דוחות התקדמות וממים משעשעים.",
-                info: "Quizizz מאפשר למידה עצמאית, הטמעת ממים והפיכת משימות בית לחוויה משחקית."
-            },
-            {
-                id: 16, title: "Baamboozle", category: "משחוק",
-                driveUrl: "", siteUrl: "https://www.baamboozle.com",
-                description: "משחקי צוותים ללא צורך במכשירים אישיים, מושלם לחימום כיתתי.",
-                info: "ב-Baamboozle התלמידים עונים בעל פה והמורה מנהל את הניקוד על המסך."
-            },
-            {
-                id: 17, title: "Nearpod", category: "משחוק",
-                driveUrl: "", siteUrl: "https://nearpod.com",
-                description: "שיעורים אינטראקטיביים המשלבת מצגות, משחקים ומציאות מדומה.",
-                info: "Nearpod מאפשר שליטה של המורה בקצב הלמידה וקבלת משוב מיידי מכל תלמיד."
-            },
-            {
-                id: 20, title: "Flippity", category: "משחוק",
-                driveUrl: "", siteUrl: "https://www.flippity.net",
-                description: "הפוך גליונות גוגל למשחקים כמו גלגלי מזל וחדרי בריחה בקלות.",
-                info: "Flippity תומך בעברית מלאה דרך גליון הנתונים ומציע עשרות תבניות למשחקי לוח דיגיטליים."
-            },
-            {
-                id: 10, title: "Wordwall", category: "משחוק",
-                driveUrl: "", siteUrl: "https://wordwall.net",
-                description: "יצירת פעילויות מותאמות אישית במגוון תבניות משחק וגרסאות מודפסות.",
-                info: "Wordwall מאפשר להפוך רשימות מושגים למשחקים כמו גלגל מזל או מבוך בלחיצת כפתור."
-            },
-            {
-                id: 11, title: "Classroomscreen", category: "כלים שעושים חיים קלים",
-                driveUrl: "https://drive.google.com/file/d/1pJDqx_K1ZKV-bEtRGHj6Sx8YUgcwuwC6/view?usp=sharing", 
-                siteUrl: "https://classroomscreen.com",
-                description: "ניהול מסך הכיתה עם כלים כמו טיימר, רמות רעש וקודי QR.",
-                info: "הכלי מרכז את כל מה שמורה צריך על המסך לניהול אפקטיבי של זמן ומשמעת בכיתה."
-            },
-            {
-                id: 7, title: "remove.bg", category: "כלים שעושים חיים קלים",
-                driveUrl: "", siteUrl: "https://www.remove.bg",
-                description: "הסרת רקע מתמונות בתוך שניות בעזרת בינה מלאכותית.",
-                info: "כלי חיוני להכנת תמונות נקיות ושקופות לשימוש במצגות וכרזות."
-            },
-            {
-                id: 8, title: "iLovePDF", category: "כלים שעושים חיים קלים",
-                driveUrl: "https://drive.google.com/file/d/1KOA268-vL0hoBkxBhtFtyqWitg5Oz5kY/view?usp=sharing", 
-                siteUrl: "https://www.ilovepdf.com",
-                description: "סט כלים לניהול, המרה ועריכת קבצי PDF בקלות ובמהירות.",
-                info: "באמצעות iLovePDF תוכלו למזג, לפצל ולדחוס קבצים בקלות ובצורה בטוחה."
-            },
-            {
-                id: 28, title: "123Apps", category: "כלים שעושים חיים קלים",
-                driveUrl: "", siteUrl: "https://123apps.com/",
-                description: "סט כלים מקוון לעריכת וידאו, אודיו וניהול PDF ללא צורך בהתקנה.",
-                info: "123Apps מאפשר חיתוך וסיבוב סרטונים, שינוי עוצמת קול, והמרת קבצים בצורה פשוטה ומהירה."
-            },
-            {
-                id: 30, title: "TinyWow", category: "כלים שעושים חיים קלים",
-                driveUrl: "", siteUrl: "https://tinywow.com/",
-                description: "מאות כלים חינמיים לטיפול בקבצים, תמונות, וידאו וכלי כתיבה במקום אחד.",
-                info: "TinyWow מציע פתרונות מהירים לכל בעיה טכנית: הסרת עצמים מתמונות, המרת פורמטים, יצירת קודי QR ועוד."
-            },
-            {
-                id: 9, title: "Pixabay", category: "מאגרי מדיה",
-                driveUrl: "", siteUrl: "https://pixabay.com",
-                description: "מאגר תמונות וסרטונים לשימוש חופשי וללא זכויות עוצרים.",
-                info: "Pixabay מספק גישה למדיה איכותית לכל נושא לימודי ללא חשש מהפרת זכויות."
-            },
-            {
-                id: 12, title: "Unsplash", category: "מאגרי מדיה",
-                driveUrl: "", siteUrl: "https://unsplash.com",
-                description: "מאגר צילומים אמנותיים ואיכותיים ברזולוציה גבוהה במיוחד.",
-                info: "השתמשו ב-Unsplash כדי לשדרג את הנראות של המצגות שלכם עם צילומים מקצועיים מרהיבים."
-            }
+            { id: 1, title: "Padlet", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1EJkXEIy4E1De2FD1pdPY8Ux9jPEQIHe5/view?usp=sharing", siteUrl: "https://padlet.com", description: "לוח קיר דיגיטלי לריכוז רעיונות ותוצרים ויזואליים בזמן אמת.", info: "באמצעות Padlet תוכלו לנהל סיעור מוחות כיתתי, לאפשר לתלמידים להגיב זה לזה ולהטמיע מדיה עשירה." },
+            { id: 2, title: "ThingLink", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/1_TS0ZEg3vJW2uPbbnO12vneIdTavgLz6/view?usp=sharing", siteUrl: "https://www.thinglink.com", description: "הפוך כל תמונה למפת למידה אינטראקטיבית עם נקודות מידע.", info: "באמצעות ThingLink תוכלו להוסיף 'נקודות חמות' על תמונות ולשלב קריינות וטקסט." },
+            { id: 27, title: "אורט קמפוס", category: "אינטראקטיביות", driveUrl: "", siteUrl: "https://campus.ort.org.il/", description: "הקמפוס הווירטואלי של רשת אורט. פלטפורמה לניהול למידה וקורסים דיגיטליים.", info: "אורט קמפוס מאפשר גישה למגוון קורסים דיגיטליים, ניהול משימות והערכה בתוך רשת אורט ישראל." },
+            { id: 3, title: "Mentimeter", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1ocybR8PcGro2Ue6GyS4a8FgwhDWB9Gzx/view?usp=sharing", siteUrl: "https://www.mentimeter.com", description: "מצגות אינטראקטיביות לשיתוף קהל וקבלת משוב חי במגוון סקרים.", info: "באמצעות Mentimeter תוכלו ליצור ענני מילים, סקרי קהל חיים ובחנים מהנים בזמן אמת." },
+            { id: 4, title: "Canva", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1cDj4dBegxxz_0x3Q0n4_QaefX196Gqy8/view?usp=sharing", siteUrl: "https://www.canva.com", description: "פלטפורמת עיצוב גרפי ליצירת מצגות, כרזות ותוכן ויזואלי.", info: "באמצעות Canva תוכלו לעצב מצגות מרהיבות ודפי עבודה בקלות וביעילות.", guideUrl: "https://www.canva.com/design/DAFRIjc8RoE/ByM_PVHabX08_95vrE-03A/view?utm_content=DAFRIjc8RoE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc086b04346" },
+            { id: 18, title: "Photopea", category: "עיצוב ויצירה", driveUrl: "", siteUrl: "https://www.photopea.com", description: "עורך תמונות מקצועי וחינמי בדפדפן, תואם פוטושופ ותומך בעברית.", info: "Photopea הוא כלי עוצמתי לעריכת תמונות בשכבות, תמיכה בקבצי PSD ויכולות עיצוב מתקדמות ללא עלות." },
+            { id: 31, title: "Tinkercad", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1ZbsYfD5GEP298ccEJWdb3UdsPKDGjsyD/view?usp=sharing", siteUrl: "https://www.tinkercad.com", description: "פלטפורמה לתכנון בתלת-ממד ועיצוב מעגלים אלקטרוניים.", info: "באמצעות Tinkercad תוכלו לתכנן מודלים תלת-ממדיים לסרטוט והדפסה וללמד יסודות הנדסיים בצורה אינטראקטיבית." },
+            { id: 6, title: "Genially", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/11lWrpl9ZwvyuED-13lEyh06SIAOHTaAx/view?usp=sharing", siteUrl: "https://genial.ly", description: "יצירת מצגות, משחקים ואינפוגרפיקות אינטראקטיביות.", info: "Genially מאפשר בניית חדרי בריחה דיגיטליים, מצגות מונפשות ואינפוגרפיקות עשירות במידע." },
+            { id: 5, title: "Kahoot!", category: "משחוק", driveUrl: "https://drive.google.com/file/d/1v5jVMrb3jEtjNpRVX7Qs8eDKrtb5zij8/view?usp=sharing", siteUrl: "https://kahoot.com", description: "הפוך למידה למשחק דרך חידונים תחרותיים.", info: "באמצעות Kahoot! תוכלו ליצור חידונים מהירים ולערוך תחרויות קבוצתיות בכיתה." },
+            { id: 13, title: "Quizizz", category: "משחוק", driveUrl: "", siteUrl: "https://quizizz.com", description: "חידונים בקצב אישי הכוללים דוחות התקדמות וממים משעשעים.", info: "Quizizz מאפשר למידה עצמאית, הטמעת ממים והפיכת משימות בית לחוויה משחקית." },
+            { id: 16, title: "Baamboozle", category: "משחוק", driveUrl: "", siteUrl: "https://www.baamboozle.com", description: "משחקי צוותים ללא צורך במכשירים אישיים, מושלם לחימום כיתתי.", info: "ב-Baamboozle התלמידים עונים בעל פה והמורה מנהל את הניקוד על המסך." },
+            { id: 17, title: "Nearpod", category: "משחוק", driveUrl: "", siteUrl: "https://nearpod.com", description: "שיעורים אינטראקטיביים המשלבת מצגות, משחקים ומציאות מדומה.", info: "Nearpod מאפשר שליטה של המורה בקצב הלמידה וקבלת משוב מיידי מכל תלמיד." },
+            { id: 20, title: "Flippity", category: "משחוק", driveUrl: "", siteUrl: "https://www.flippity.net", description: "הפוך גליונות גוגל למשחקים כמו גלגלי מזל וחדרי בריחה בקלות.", info: "Flippity תומך בעברית מלאה דרך גליון הנתונים ומציע תבניות למשחקי לוח דיגיטליים." },
+            { id: 10, title: "Wordwall", category: "משחוק", driveUrl: "", siteUrl: "https://wordwall.net", description: "יצירת פעילויות מותאמות אישית במגוון תבניות משחק.", info: "Wordwall מאפשר להפוך רשימות מושגים למשחקים כמו גלגל מזל או מבוך בלחיצת כפתור." },
+            { id: 11, title: "Classroomscreen", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1pJDqx_K1ZKV-bEtRGHj6Sx8YUgcwuwC6/view?usp=sharing", siteUrl: "https://classroomscreen.com", description: "ניהול מסך הכיתה עם כלים כמו טיימר, רמות רעש וקודי QR.", info: "הכלי מרכז את כל מה שמורה צריך על המסך לניהול אפקטיבי של השיעור." },
+            { id: 7, title: "remove.bg", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://www.remove.bg", description: "הסרת רקע מתמונות בתוך שניות בעזרת בינה מלאכותית.", info: "כלי חיוני להכנת תמונות נקיות ושקופות לשימוש במצגות וכרזות." },
+            { id: 8, title: "iLovePDF", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1KOA268-vL0hoBkxBhtFtyqWitg5Oz5kY/view?usp=sharing", siteUrl: "https://www.ilovepdf.com", description: "סט כלים לניהול, המרה ועריכת קבצי PDF בקלות.", info: "באמצעות iLovePDF תוכלו למזג, לפצל ולדחוס קבצי PDF בצורה מהירה." },
+            { id: 28, title: "123Apps", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://123apps.com/", description: "סט כלים מקוון לעריכת וידאו, אודיו וניהול PDF ללא צורך בהתקנה.", info: "123Apps מאפשר חיתוך וסיבוב סרטונים, שינוי עוצמת קול, והמרת קבצים בצורה פשוטה ומהירה." },
+            { id: 30, title: "TinyWow", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://tinywow.com/", description: "מאות כלים חינמיים לטיפול בקבצים, תמונות, וידאו וכלי כתיבה במקום אחד.", info: "TinyWow מציע פתרונות מהירים לכל בעיה טכנית: הסרת עצמים מתמונות, המרת פורמטים ועוד." },
+            { id: 9, title: "Pixabay", category: "מאגרי מדיה", driveUrl: "", siteUrl: "https://pixabay.com", description: "מאגר תמונות וסרטונים לשימוש חופשי וללא זכויות יוצרים.", info: "Pixabay מספק גישה למדיה איכותית לכל נושא לימודי ללא חשש מהפרת זכויות." },
+            { id: 12, title: "Unsplash", category: "מאגרי מדיה", driveUrl: "", siteUrl: "https://unsplash.com", description: "מאגר צילומים אמנותיים ואיכותיים ברזולוציה גבוהה.", info: "השתמשו ב-Unsplash כדי לשדרג את הנראות של המצגות שלכם עם צילומים מקצועיים מרהיבים." }
         ];
 
         const grid = document.getElementById('presentationsGrid');
@@ -380,29 +259,26 @@
         let searchQuery = '';
 
         const categoryStyles = {
-            'שיתופיות': { base: 'bg-orange-900/30 text-orange-400 border-orange-500/50', active: 'bg-cyan-500 text-black border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)]', hover: 'hover:bg-cyan-900/60' },
-            'אינטראקטיביות': { base: 'bg-orange-900/30 text-orange-400 border-orange-500/50', active: 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.5)]', hover: 'hover:bg-emerald-900/60' },
-            'עיצוב ויצירה': { base: 'bg-orange-900/30 text-orange-400 border-orange-500/50', active: 'bg-rose-500 text-black border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.5)]', hover: 'hover:bg-rose-900/60' },
-            'משחוק': { base: 'bg-orange-900/30 text-orange-400 border-orange-500/50', active: 'bg-indigo-500 text-black border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.5)]', hover: 'hover:bg-indigo-900/60' },
-            'כלים שעושים חיים קלים': { base: 'bg-orange-900/30 text-orange-400 border-orange-500/50', active: 'bg-amber-500 text-black border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.5)]', hover: 'hover:bg-amber-900/60' },
-            'מאגרי מדיה': { base: 'bg-orange-900/30 text-orange-400 border-orange-500/50', active: 'bg-fuchsia-500 text-black border-fuchsia-400 shadow-[0_0_15px_rgba(217,70,239,0.5)]', hover: 'hover:bg-fuchsia-900/60' },
-            'הכל': { base: 'bg-slate-700/40 text-slate-300 border-slate-500', active: 'bg-slate-200 text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.3)]', hover: 'hover:bg-slate-700/60' },
-            'default': { base: 'bg-orange-900/30 text-orange-400 border-orange-500/50', active: 'bg-orange-500 text-black border-orange-400', hover: 'hover:bg-orange-900/60' }
+            'שיתופיות': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(34,211,238,0.5)]' },
+            'אינטראקטיביות': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.5)]' },
+            'עיצוב ויצירה': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-rose-500 text-black shadow-[0_0_15px_rgba(244,63,94,0.5)]' },
+            'משחוק': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-indigo-500 text-black shadow-[0_0_15px_rgba(99,102,241,0.5)]' },
+            'כלים שעושים חיים קלים': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.5)]' },
+            'מאגרי מדיה': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-fuchsia-500 text-black shadow-[0_0_15px_rgba(217,70,239,0.5)]' },
+            'הכל': { base: 'bg-slate-700/40 text-slate-300', active: 'bg-slate-200 text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]' },
+            'default': { base: 'bg-orange-900/30 text-orange-400', active: 'bg-orange-500 text-black' }
         };
 
-        function getCategoryStyle(category, isActive = false, isFilterBtn = true) {
+        function getCategoryStyle(category, isActive = false) {
             const style = categoryStyles[category] || categoryStyles['default'];
-            if (!isFilterBtn) return style.active.split('shadow')[0].replace('text-black', ''); 
-            return isActive ? style.active : `${style.base} ${style.hover}`;
+            return isActive ? style.active : style.base;
         }
-
-        function getCategoryCount(category) { return category === 'הכל' ? presentations.length : presentations.filter(p => p.category === category).length; }
 
         function renderFilters() {
             const categories = ['הכל', ...new Set(presentations.map(p => p.category))];
             filterBar.innerHTML = categories.map(cat => {
                 const isActive = activeCategory === cat;
-                return `<button onclick="setFilter('${cat}')" class="filter-btn w-full md:w-auto ${getCategoryStyle(cat, isActive, true)}">${cat} <span class="mr-1 opacity-60 text-[0.7rem]">(${getCategoryCount(cat)})</span></button>`;
+                return `<button onclick="setFilter('${cat}')" class="filter-btn w-full md:w-auto ${getCategoryStyle(cat, isActive)}">${cat} <span class="mr-1 opacity-60 text-[0.7rem]">(${cat === 'הכל' ? presentations.length : presentations.filter(p => p.category === cat).length})</span></button>`;
             }).join('');
         }
 
@@ -412,18 +288,23 @@
         function renderPresentations() {
             let filtered = activeCategory === 'הכל' ? presentations : presentations.filter(p => p.category === activeCategory);
             if (searchQuery) filtered = filtered.filter(p => p.title.toLowerCase().includes(searchQuery) || p.description.toLowerCase().includes(searchQuery));
-            if (filtered.length === 0) { grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500">לא נמצאו כלים...</div>`; return; }
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500">לא נמצאו כלים התואמים את החיפוש...</div>`;
+                return;
+            }
+
             grid.innerHTML = filtered.map(p => `
                 <div class="card-3d p-8 flex flex-col justify-between">
                     <div>
-                        <div class="category-chip ${getCategoryStyle(p.category, true, false)}">${p.category}</div>
+                        <div class="category-chip ${getCategoryStyle(p.category, true).split('shadow')[0]}">${p.category}</div>
                         <h3 class="text-2xl font-bold mb-4 text-white">${p.title}</h3>
                         <p class="text-white text-base mb-10 leading-relaxed">${p.description}</p>
                     </div>
                     <div class="flex flex-col gap-3">
                         <div class="grid grid-cols-2 gap-3">
-                            <button onclick="openModal(${p.id})" class="glass-btn py-3 px-2 rounded font-bold text-[10px] md:text-xs text-center">מידע ושימושים</button>
-                            <a href="${p.siteUrl}" target="_blank" class="glass-btn py-3 px-2 rounded font-bold text-[10px] md:text-xs text-center flex items-center justify-center">כניסה לאתר</a>
+                            <button onclick="openModal(${p.id})" class="glass-btn py-3 px-2 rounded font-bold text-xs text-center">מידע ושימושים</button>
+                            <a href="${p.siteUrl}" target="_blank" class="glass-btn py-3 px-2 rounded font-bold text-xs text-center flex items-center justify-center">כניסה לאתר</a>
                         </div>
                         ${p.guideUrl ? `<a href="${p.guideUrl}" target="_blank" class="glass-btn py-3 px-4 rounded text-center text-xs transition-all font-bold tracking-wider border-orange-500/50 text-orange-400 hover:bg-orange-500/20">מדריך לקבלת חשבון חינוך</a>` : ''}
                         ${p.driveUrl ? `<a href="${p.driveUrl}" target="_blank" class="bg-orange-500 hover:bg-yellow-500 text-black py-3 px-4 rounded text-center text-xs transition-all font-black uppercase shadow-[0_0_15px_rgba(249,115,22,0.4)]">צפייה במצגת ההדרכה</a>` : ''}
