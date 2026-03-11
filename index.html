@@ -38,6 +38,40 @@
             padding-bottom: 0.5rem;
         }
 
+        /* Search Input Styling */
+        .search-container {
+            position: relative;
+            max-width: 300px;
+            margin: 1.5rem auto;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--glass-border);
+            border-radius: 4px;
+            padding: 10px 40px 10px 15px;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.2);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-orange);
+            pointer-events: none;
+        }
+
         /* 3D Futuristic Card */
         .card-3d {
             background: var(--card-bg);
@@ -114,7 +148,6 @@
             justify-content: center;
         }
 
-        /* Shimmer effect - Moving from Right to Left */
         .filter-btn::after {
             content: '';
             position: absolute;
@@ -186,11 +219,18 @@
 <body class="p-4 md:p-8">
 
     <header class="max-w-6xl mx-auto mb-12 text-center">
-        <h1 class="text-3xl md:text-5xl font-bold mb-4 futuristic-title text-white text-wrap">ארגז הכלים של שחקים</h1>
+        <h1 class="text-3xl md:text-5xl font-bold mb-2 futuristic-title text-white text-wrap">ארגז הכלים של שחקים</h1>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="searchInput" class="search-input" placeholder="חיפוש כלי..." oninput="handleSearch()">
+        </div>
+
         <p class="text-white text-lg opacity-90">כלים טכנופדגוגיים חכמים להוראה</p>
     </header>
 
-    <!-- Navigation Bar - Adjusted for Mobile Symmetry -->
+    <!-- Navigation Bar -->
     <nav class="max-w-6xl mx-auto mb-10 px-2">
         <div id="filterBar" class="grid grid-cols-2 gap-2 sm:grid-cols-3 md:flex md:flex-wrap md:gap-3 md:justify-center">
             <!-- Filter buttons injected via JS -->
@@ -203,10 +243,13 @@
 
     <footer class="w-full py-8 mt-12 text-center">
         <div class="max-w-6xl mx-auto px-4">
-            <p class="text-slate-500 text-sm tracking-widest uppercase">
-                המאגר נוצר ע"י <span class="text-[#fb923c] font-bold">איתי בן טל אורט שחקים נהריה</span>
+            <p class="text-slate-500 text-sm tracking-widest uppercase mb-1">
+                המאגר נוצר ע"י <span class="text-[#fb923c] font-bold">איתי בן טל</span>
             </p>
-            <div class="mt-2 w-16 h-0.5 bg-[#fb923c] mx-auto opacity-30"></div>
+            <p class="text-slate-500 text-xs tracking-widest uppercase">
+                אורט שחקים נהריה
+            </p>
+            <div class="mt-4 w-16 h-0.5 bg-[#fb923c] mx-auto opacity-30"></div>
         </div>
     </footer>
 
@@ -363,7 +406,9 @@
 
         const grid = document.getElementById('presentationsGrid');
         const filterBar = document.getElementById('filterBar');
+        const searchInput = document.getElementById('searchInput');
         let activeCategory = 'הכל';
+        let searchQuery = '';
 
         const categoryStyles = {
             'שיתופיות': {
@@ -414,11 +459,19 @@
             return isActive ? style.active : `${style.base} ${style.hover}`;
         }
 
+        function getCategoryCount(category) {
+            if (category === 'הכל') return presentations.length;
+            return presentations.filter(p => p.category === category).length;
+        }
+
         function renderFilters() {
             const categories = ['הכל', ...new Set(presentations.map(p => p.category))];
             filterBar.innerHTML = categories.map(cat => {
                 const isActive = activeCategory === cat;
-                return `<button onclick="setFilter('${cat}')" class="filter-btn w-full md:w-auto ${getCategoryStyle(cat, isActive, true)}">${cat}</button>`;
+                const count = getCategoryCount(cat);
+                return `<button onclick="setFilter('${cat}')" class="filter-btn w-full md:w-auto ${getCategoryStyle(cat, isActive, true)}">
+                    ${cat} <span class="mr-1 opacity-60 text-[0.7rem]">(${count})</span>
+                </button>`;
             }).join('');
         }
 
@@ -428,8 +481,26 @@
             renderPresentations();
         }
 
+        function handleSearch() {
+            searchQuery = searchInput.value.toLowerCase().trim();
+            renderPresentations();
+        }
+
         function renderPresentations() {
-            const filteredData = activeCategory === 'הכל' ? presentations : presentations.filter(p => p.category === activeCategory);
+            let filteredData = activeCategory === 'הכל' ? presentations : presentations.filter(p => p.category === activeCategory);
+            
+            if (searchQuery) {
+                filteredData = filteredData.filter(p => 
+                    p.title.toLowerCase().includes(searchQuery) || 
+                    p.description.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            if (filteredData.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500">לא נמצאו כלים התואמים את החיפוש...</div>`;
+                return;
+            }
+
             grid.innerHTML = filteredData.map(p => `
                 <div class="card-3d p-8 flex flex-col justify-between">
                     <div>
