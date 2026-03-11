@@ -168,12 +168,10 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="input-group">
                 <label class="input-label">שם פרטי</label>
-                <!-- Removed placeholder text as requested -->
                 <input type="text" id="firstName" class="main-input" placeholder="">
             </div>
             <div class="input-group">
                 <label class="input-label">שם משפחה</label>
-                <!-- Removed placeholder text as requested -->
                 <input type="text" id="lastName" class="main-input" placeholder="">
             </div>
         </div>
@@ -196,7 +194,6 @@
 
         <button id="submitBtn" class="enter-btn">כניסה למערכת</button>
 
-        <!-- Admin Section -->
         <div class="admin-section">
             <p class="text-xs text-slate-500 mb-3">כניסת מנהל מערכת</p>
             <div class="flex gap-2 justify-center items-center">
@@ -210,7 +207,6 @@
         </div>
     </div>
 
-    <!-- Welcome Message Modal -->
     <div id="welcomeOverlay">
         <h2 id="welcomeName" class="text-4xl font-bold text-white mb-4">שלום</h2>
         <p class="text-orange-400 text-xl">מיד תועבר לארגז הכלים...</p>
@@ -222,7 +218,6 @@
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase configuration provided by user
         const firebaseConfig = {
             apiKey: "AIzaSyCuo4N-w-5JFu2pLwmNmPrnuB56q0-9Ikc",
             authDomain: "pedagogical-tools.firebaseapp.com",
@@ -252,7 +247,6 @@
 
         let isAuthReady = false;
 
-        // RULE 3: Initial Auth with error handling
         const initAuth = async () => {
             try {
                 await signInAnonymously(auth);
@@ -264,7 +258,6 @@
         };
         initAuth();
 
-        // Admin Login logic
         adminLoginBtn.addEventListener('click', async () => {
             if (adminCodeInput.value === '1234') {
                 loader.style.display = 'block';
@@ -275,7 +268,6 @@
             }
         });
 
-        // Data collection function
         async function logVisit(fName, lName, role, method) {
             if (!isAuthReady) {
                 console.warn("Cannot log visit: Auth not ready. Proceeding anyway.");
@@ -300,7 +292,8 @@
             welcomeName.innerText = `שלום ${name}`;
             welcomeOverlay.style.display = 'flex';
             setTimeout(() => {
-                window.location.href = 'index.html'; 
+                // שונה ל-dashboard.html כדי למנוע לולאת התחברות
+                window.location.href = 'dashboard.html'; 
             }, 2000);
         }
 
