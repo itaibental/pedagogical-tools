@@ -24,7 +24,7 @@
             align-items: center;
             justify-content: center;
             margin: 0;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .login-card {
@@ -32,40 +32,49 @@
             border: 1px solid rgba(251, 146, 60, 0.3);
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             padding: 2.5rem;
             border-radius: 8px;
             text-align: center;
             position: relative;
             z-index: 10;
+            margin: 20px;
         }
 
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             text-align: right;
         }
 
         .input-label {
             display: block;
             color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+            font-weight: bold;
         }
 
-        .main-input {
+        .main-input, .main-select {
             width: 100%;
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(251, 146, 60, 0.3);
             color: white;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 4px;
             outline: none;
             transition: all 0.3s;
+            font-size: 1rem;
         }
 
-        .main-input:focus {
+        .main-input:focus, .main-select:focus {
             border-color: var(--accent-orange);
             background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 10px rgba(251, 146, 60, 0.1);
+        }
+
+        .main-select option {
+            background: #1e293b;
+            color: white;
         }
 
         .enter-btn {
@@ -79,6 +88,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 1rem;
+            cursor: pointer;
         }
 
         .enter-btn:hover:not(:disabled) {
@@ -104,21 +114,20 @@
             color: white;
             padding: 8px 12px;
             border-radius: 4px;
-            width: 120px;
+            width: 100px;
             text-align: center;
             outline: none;
-            transition: border-color 0.3s;
         }
 
         .error-box {
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid #ef4444;
             color: #ef4444;
-            padding: 1rem;
+            padding: 0.75rem;
             border-radius: 4px;
             margin-bottom: 1.5rem;
             display: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .loading-spinner {
@@ -143,10 +152,8 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            animation: fadeIn 0.5s ease;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -158,20 +165,40 @@
         
         <div id="errorMessage" class="error-box text-right"></div>
 
+        <div class="grid grid-cols-2 gap-4">
+            <div class="input-group">
+                <label class="input-label">שם פרטי</label>
+                <!-- Removed placeholder text as requested -->
+                <input type="text" id="firstName" class="main-input" placeholder="">
+            </div>
+            <div class="input-group">
+                <label class="input-label">שם משפחה</label>
+                <!-- Removed placeholder text as requested -->
+                <input type="text" id="lastName" class="main-input" placeholder="">
+            </div>
+        </div>
+
         <div class="input-group">
-            <label class="input-label">מהו שמך?</label>
-            <input type="text" id="userName" class="main-input" placeholder="הכנס שם מלא">
+            <label class="input-label">תפקיד</label>
+            <select id="userRole" class="main-select">
+                <option value="" disabled selected>בחר תפקיד...</option>
+                <option value="מורה מקצועי/ת">מורה מקצועי/ת</option>
+                <option value="מחנך/ת">מחנך/ת</option>
+                <option value="מנהל/ת">מנהל/ת</option>
+                <option value="סייעת">סייעת</option>
+            </select>
         </div>
 
         <div class="input-group">
             <label class="input-label">מהו הדומיין של החשבון הארגוני של בית הספר?</label>
-            <input type="text" id="domainAnswer" class="main-input" placeholder="לדוגמה: domain.com">
+            <input type="text" id="domainAnswer" class="main-input" placeholder="למשל: ort.org.il">
         </div>
 
         <button id="submitBtn" class="enter-btn">כניסה למערכת</button>
 
+        <!-- Admin Section -->
         <div class="admin-section">
-            <p class="text-xs text-slate-500 mb-3">כניסת מנהל (מעקף קוד)</p>
+            <p class="text-xs text-slate-500 mb-3">כניסת מנהל מערכת</p>
             <div class="flex gap-2 justify-center items-center">
                 <input type="password" id="adminCode" class="admin-input" placeholder="קוד">
                 <button id="adminLoginBtn" class="bg-orange-600/20 hover:bg-orange-600 text-orange-400 hover:text-white border border-orange-600/50 px-4 py-2 rounded text-sm transition-all">כניסה</button>
@@ -183,6 +210,7 @@
         </div>
     </div>
 
+    <!-- Welcome Message Modal -->
     <div id="welcomeOverlay">
         <h2 id="welcomeName" class="text-4xl font-bold text-white mb-4">שלום</h2>
         <p class="text-orange-400 text-xl">מיד תועבר לארגז הכלים...</p>
@@ -194,6 +222,7 @@
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Firebase configuration provided by user
         const firebaseConfig = {
             apiKey: "AIzaSyCuo4N-w-5JFu2pLwmNmPrnuB56q0-9Ikc",
             authDomain: "pedagogical-tools.firebaseapp.com",
@@ -212,65 +241,105 @@
         const submitBtn = document.getElementById('submitBtn');
         const adminLoginBtn = document.getElementById('adminLoginBtn');
         const adminCodeInput = document.getElementById('adminCode');
-        const userNameInput = document.getElementById('userName');
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const roleSelect = document.getElementById('userRole');
         const domainInput = document.getElementById('domainAnswer');
         const errorMessage = document.getElementById('errorMessage');
         const loader = document.getElementById('loader');
         const welcomeOverlay = document.getElementById('welcomeOverlay');
         const welcomeName = document.getElementById('welcomeName');
 
+        let isAuthReady = false;
+
+        // RULE 3: Initial Auth with error handling
         const initAuth = async () => {
-            try { await signInAnonymously(auth); } catch (err) { console.error("Auth init failed", err); }
+            try {
+                await signInAnonymously(auth);
+                isAuthReady = true;
+                console.log("Auth ready");
+            } catch (err) {
+                console.error("Auth init failed:", err);
+            }
         };
         initAuth();
 
+        // Admin Login logic
         adminLoginBtn.addEventListener('click', async () => {
             if (adminCodeInput.value === '1234') {
                 loader.style.display = 'block';
-                await logVisit("מנהל מערכת", "Admin Bypass");
+                await logVisit("מנהל", "מערכת", "מנהל/ת", "Admin Bypass");
                 showGreeting("מנהל מערכת");
             } else {
                 showError("קוד שגוי. נסה שוב.");
             }
         });
 
-        async function logVisit(name, method) {
-            if (!auth.currentUser) return;
+        // Data collection function
+        async function logVisit(fName, lName, role, method) {
+            if (!isAuthReady) {
+                console.warn("Cannot log visit: Auth not ready. Proceeding anyway.");
+                return;
+            }
             try {
                 const logRef = collection(db, 'artifacts', appId, 'public', 'data', 'user_logins');
                 await addDoc(logRef, {
-                    name: name,
+                    firstName: fName,
+                    lastName: lName,
+                    role: role,
                     method: method,
                     timestamp: serverTimestamp(),
-                    uid: auth.currentUser.uid
+                    uid: auth.currentUser ? auth.currentUser.uid : 'anonymous'
                 });
-            } catch (e) { console.error("Firestore Logging Failed:", e); }
+            } catch (e) {
+                console.error("Firestore Logging Failed:", e);
+            }
         }
 
         function showGreeting(name) {
             welcomeName.innerText = `שלום ${name}`;
             welcomeOverlay.style.display = 'flex';
             setTimeout(() => {
-                window.location.href = 'dashboard.html'; // מעבר לקובץ המאגר המעודכן
+                window.location.href = 'index.html'; 
             }, 2000);
         }
 
         async function handleSubmit() {
             errorMessage.style.display = 'none';
-            const name = userNameInput.value.trim();
+            const fName = firstNameInput.value.trim();
+            const lName = lastNameInput.value.trim();
+            const role = roleSelect.value;
             const answer = domainInput.value.trim().toLowerCase();
-            if (!name) { showError("אנא הכנס את שמך."); return; }
-            if (answer !== CORRECT_DOMAIN) { showError("הדומיין שהוזן אינו נכון. אנא נסה שוב."); return; }
+
+            if (!fName || !lName) {
+                showError("אנא הכנס שם פרטי ושם משפחה.");
+                return;
+            }
+
+            if (!role) {
+                showError("אנא בחר תפקיד מהרשימה.");
+                return;
+            }
+
+            if (answer !== CORRECT_DOMAIN) {
+                showError("הדומיין שהוזן אינו נכון. אנא נסה שוב.");
+                return;
+            }
+
             loader.style.display = 'block';
             submitBtn.disabled = true;
-            await logVisit(name, "Domain Question");
-            showGreeting(name);
+
+            await logVisit(fName, lName, role, "Domain Question");
+            showGreeting(`${fName} ${lName}`);
         }
 
         function showError(msg) {
             errorMessage.innerHTML = msg;
             errorMessage.style.display = 'block';
+            loader.style.display = 'none';
+            submitBtn.disabled = false;
         }
+
         submitBtn.addEventListener('click', handleSubmit);
     </script>
 </body>
