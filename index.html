@@ -32,134 +32,46 @@
             border: 1px solid rgba(251, 146, 60, 0.3);
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             padding: 2.5rem;
             border-radius: 8px;
             text-align: center;
-            position: relative;
-            z-index: 10;
-            margin: 20px;
         }
 
-        .input-group {
-            margin-bottom: 1.25rem;
-            text-align: right;
-        }
-
-        .input-label {
-            display: block;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-bottom: 0.4rem;
-            font-weight: bold;
-        }
+        .input-group { margin-bottom: 1.25rem; text-align: right; }
+        .input-label { display: block; color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.4rem; font-weight: bold; }
 
         .main-input, .main-select {
-            width: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(251, 146, 60, 0.3);
-            color: white;
-            padding: 10px 14px;
-            border-radius: 4px;
-            outline: none;
-            transition: all 0.3s;
+            width: 100%; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(251, 146, 60, 0.3);
+            color: white; padding: 12px; border-radius: 4px; outline: none; transition: all 0.3s;
             font-size: 1rem;
         }
 
-        .main-input:focus, .main-select:focus {
-            border-color: var(--accent-orange);
-            background: rgba(15, 23, 42, 0.9);
-            box-shadow: 0 0 10px rgba(251, 146, 60, 0.1);
-        }
-
-        .main-select option {
-            background: #1e293b;
-            color: white;
-        }
+        .main-input:focus, .main-select:focus { border-color: var(--accent-orange); background: rgba(15, 23, 42, 0.9); }
 
         .enter-btn {
-            background: var(--accent-orange);
-            color: white;
-            font-weight: bold;
-            padding: 14px 24px;
-            border-radius: 4px;
-            width: 100%;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 1rem;
-            cursor: pointer;
+            background: var(--accent-orange); color: white; font-weight: bold; padding: 14px 24px;
+            border-radius: 4px; width: 100%; transition: all 0.3s ease; text-transform: uppercase;
+            letter-spacing: 1px; margin-top: 1rem; cursor: pointer;
         }
 
-        .enter-btn:hover:not(:disabled) {
-            background: #f97316;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(251, 146, 60, 0.3);
-        }
+        .enter-btn:hover:not(:disabled) { background: #f97316; transform: translateY(-2px); }
+        .enter-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .enter-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .admin-section {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .admin-input {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(251, 146, 60, 0.3);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            width: 100px;
-            text-align: center;
-            outline: none;
-        }
-
-        .error-box {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #ef4444;
-            color: #ef4444;
-            padding: 0.75rem;
-            border-radius: 4px;
-            margin-bottom: 1.5rem;
-            display: none;
-            font-size: 0.85rem;
-        }
-
-        .loading-spinner {
-            border: 3px solid rgba(251, 146, 60, 0.1);
-            border-top: 3px solid var(--accent-orange);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
+        .error-box { background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; color: #ef4444; padding: 0.75rem; border-radius: 4px; margin-bottom: 1.5rem; display: none; font-size: 0.85rem; }
 
         #welcomeOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 6, 23, 0.95);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 6, 23, 0.95);
+            display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;
         }
 
+        .spinner { border: 3px solid rgba(251, 146, 60, 0.1); border-top: 3px solid var(--accent-orange); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
+    <div class="login-card" id="loginForm">
         <h1 class="text-3xl font-bold mb-2 text-white uppercase italic tracking-wider">שחקים TOOLBOX</h1>
         <p class="text-slate-400 mb-8">זיהוי משתמש ארגוני</p>
         
@@ -168,11 +80,11 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="input-group">
                 <label class="input-label">שם פרטי</label>
-                <input type="text" id="firstName" class="main-input" placeholder="">
+                <input type="text" id="firstName" class="main-input">
             </div>
             <div class="input-group">
                 <label class="input-label">שם משפחה</label>
-                <input type="text" id="lastName" class="main-input" placeholder="">
+                <input type="text" id="lastName" class="main-input">
             </div>
         </div>
 
@@ -189,21 +101,14 @@
 
         <div class="input-group">
             <label class="input-label">כתובת מייל ארגונית</label>
-            <input type="text" id="domainAnswer" class="main-input" placeholder="הקלד כאן...">
+            <input type="text" id="emailInput" class="main-input" placeholder="הקלד כאן...">
         </div>
 
         <button id="submitBtn" class="enter-btn">כניסה למערכת</button>
 
-        <div class="admin-section">
-            <p class="text-xs text-slate-500 mb-3">כניסת מנהל מערכת</p>
-            <div class="flex gap-2 justify-center items-center">
-                <input type="password" id="adminCode" class="admin-input" placeholder="קוד">
-                <button id="adminLoginBtn" class="bg-orange-600/20 hover:bg-orange-600 text-orange-400 hover:text-white border border-orange-600/50 px-4 py-2 rounded text-sm transition-all">כניסה</button>
-            </div>
-        </div>
-
-        <div class="mt-4 flex justify-center">
-            <div id="loader" class="loading-spinner"></div>
+        <div class="mt-8 pt-6 border-t border-white/10 flex gap-2 justify-center items-center">
+            <input type="password" id="adminCode" class="w-24 bg-slate-800 border border-white/10 rounded p-2 text-center text-sm text-white outline-none" placeholder="קוד מנהל">
+            <button id="adminBtn" class="bg-orange-600/20 hover:bg-orange-600 text-orange-400 hover:text-white px-4 py-2 rounded text-xs transition-all">כניסה</button>
         </div>
     </div>
 
@@ -234,100 +139,67 @@
         const CORRECT_DOMAIN = "sn.ort.org.il";
 
         const submitBtn = document.getElementById('submitBtn');
-        const adminLoginBtn = document.getElementById('adminLoginBtn');
-        const adminCodeInput = document.getElementById('adminCode');
-        const firstNameInput = document.getElementById('firstName');
-        const lastNameInput = document.getElementById('lastName');
-        const roleSelect = document.getElementById('userRole');
-        const domainInput = document.getElementById('domainAnswer');
+        const adminBtn = document.getElementById('adminBtn');
         const errorMessage = document.getElementById('errorMessage');
-        const loader = document.getElementById('loader');
         const welcomeOverlay = document.getElementById('welcomeOverlay');
         const welcomeName = document.getElementById('welcomeName');
 
-        let isAuthReady = false;
+        signInAnonymously(auth).catch(err => console.error("Firebase Error", err));
 
-        const initAuth = async () => {
-            try {
-                await signInAnonymously(auth);
-                isAuthReady = true;
-            } catch (err) {
-                console.error("Auth init failed:", err);
-            }
-        };
-        initAuth();
-
-        adminLoginBtn.addEventListener('click', async () => {
-            if (adminCodeInput.value === '1234') {
-                loader.style.display = 'block';
-                await doLogin("מנהל", "מערכת", "מנהל/ת", "Admin Bypass");
-            } else {
-                showError("קוד שגוי. נסה שוב.");
-            }
-        });
+        function showError(msg) {
+            errorMessage.innerText = msg;
+            errorMessage.style.display = 'block';
+            submitBtn.disabled = false;
+        }
 
         async function doLogin(fName, lName, role, method) {
-            // קביעת זמן תפוגה ל-10 דקות (במילישניות)
-            const expiryTime = Date.now() + (10 * 60 * 1000);
+            const expiry = Date.now() + (10 * 60 * 1000);
             sessionStorage.setItem('toolbox_authorized', 'true');
-            sessionStorage.setItem('toolbox_auth_expiry', expiryTime.toString());
+            sessionStorage.setItem('toolbox_auth_expiry', expiry.toString());
             
             welcomeName.innerText = `שלום ${fName}`;
             welcomeOverlay.style.display = 'flex';
 
-            if (isAuthReady) {
-                try {
-                    const logRef = collection(db, 'artifacts', appId, 'public', 'data', 'user_logins');
-                    await addDoc(logRef, {
-                        firstName: fName,
-                        lastName: lName,
-                        role: role,
-                        method: method,
-                        timestamp: serverTimestamp(),
-                        uid: auth.currentUser ? auth.currentUser.uid : 'anonymous'
-                    });
-                } catch (e) {
-                    console.error("Firestore Logging Failed:", e);
-                }
-            }
+            try {
+                const logRef = collection(db, 'artifacts', appId, 'public', 'data', 'user_logins');
+                await addDoc(logRef, {
+                    firstName: fName, lastName: lName, role: role, method: method, timestamp: serverTimestamp()
+                });
+            } catch (e) { console.error("Logging failed", e); }
 
             setTimeout(() => {
-                window.location.replace('dashboard.html'); 
-            }, 1500);
+                window.location.replace('dashboard.html');
+            }, 1800);
         }
 
-        async function handleSubmit() {
-            errorMessage.style.display = 'none';
-            const fName = firstNameInput.value.trim();
-            const lName = lastNameInput.value.trim();
-            const role = roleSelect.value;
-            const inputVal = domainInput.value.trim().toLowerCase();
+        submitBtn.addEventListener('click', () => {
+            const fName = document.getElementById('firstName').value.trim();
+            const lName = document.getElementById('lastName').value.trim();
+            const role = document.getElementById('userRole').value;
+            const inputVal = document.getElementById('emailInput').value.trim().toLowerCase();
 
-            if (!fName || !lName) { showError("אנא הכנס שם פרטי ושם משפחה."); return; }
-            if (!role) { showError("אנא בחר תפקיד מהרשימה."); return; }
-            if (!inputVal) { showError("אנא הכנס פרטי הזדהות."); return; }
+            if (!fName || !lName) return showError("אנא הכנס שם מלא.");
+            if (!role) return showError("אנא בחר תפקיד.");
+            if (!inputVal) return showError("אנא הכנס פרטי הזדהות.");
 
             const domainToCheck = inputVal.includes('@') ? inputVal.split('@')[1] : inputVal;
 
             if (domainToCheck !== CORRECT_DOMAIN) {
-                showError("הזיהוי נכשל. עליך להשתמש במייל הארגוני או בדומיין הנכון.");
-                return;
+                return showError("הזיהוי נכשל. עליך להשתמש במייל הארגוני או בדומיין הנכון.");
             }
 
-            loader.style.display = 'block';
             submitBtn.disabled = true;
+            doLogin(fName, lName, role, "Identity Validation");
+        });
 
-            await doLogin(fName, lName, role, "Identity Validation");
-        }
-
-        function showError(msg) {
-            errorMessage.innerHTML = msg;
-            errorMessage.style.display = 'block';
-            loader.style.display = 'none';
-            submitBtn.disabled = false;
-        }
-
-        submitBtn.addEventListener('click', handleSubmit);
+        adminBtn.addEventListener('click', () => {
+            const code = document.getElementById('adminCode').value;
+            if (code === '1234') {
+                doLogin("מנהל", "מערכת", "מנהל/ת", "Admin Access");
+            } else {
+                alert("קוד שגוי");
+            }
+        });
     </script>
 </body>
 </html>
