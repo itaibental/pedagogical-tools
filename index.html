@@ -154,7 +154,11 @@
         }
 
         async function doLogin(fName, lName, role, method) {
-            // הגדרת הרשאה ב-sessionStorage
+            // 1. קביעת מועד תפוגה לעוד 10 דקות (במילישניות)
+            const expiryTime = Date.now() + (10 * 60 * 1000);
+            
+            // 2. שמירת הנתונים ב-sessionStorage
+            sessionStorage.setItem('toolbox_auth_expiry', expiryTime.toString());
             sessionStorage.setItem('toolbox_authorized', 'true');
             
             welcomeName.innerText = `שלום ${fName}`;
@@ -168,7 +172,7 @@
             } catch (e) { console.error("Logging failed", e); }
 
             setTimeout(() => {
-                window.location.replace('dashboard.html');
+                window.location.href = 'dashboard.html';
             }, 1800);
         }
 
