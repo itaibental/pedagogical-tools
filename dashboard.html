@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ארגז הכלים של שחקים</title>
-    <!-- מנגנון הגנה עם בדיקת תפוגה של 10 דקות -->
+    <!-- מנגנון הגנה: בדיקה אם המשתמש מורשה ואם ה-10 דקות עברו -->
     <script>
         (function() {
             const isAuthorized = sessionStorage.getItem('toolbox_authorized') === 'true';
@@ -65,75 +65,42 @@
         body.light-blue-mode { background-image: none; color: #1e293b; }
 
         .futuristic-title {
-            font-family: 'Assistant', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            border-bottom: 2px solid var(--accent-blue);
-            display: inline-block;
-            padding-bottom: 0.5rem;
-            color: var(--title-color);
+            font-family: 'Assistant', sans-serif; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); border-bottom: 2px solid var(--accent-blue);
+            display: inline-block; padding-bottom: 0.5rem; color: var(--title-color);
         }
 
         .theme-toggle-btn {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid var(--glass-border);
-            color: var(--accent-blue);
-            padding: 10px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(59, 130, 246, 0.1); border: 1px solid var(--glass-border);
+            color: var(--accent-blue); padding: 10px; border-radius: 12px; cursor: pointer;
+            transition: all 0.3s; display: flex; align-items: center; justify-content: center;
         }
 
-        .theme-toggle-btn:hover { background: var(--accent-blue); color: white; box-shadow: 0 0 15px var(--accent-blue); }
+        .view-toggle-invisible { background: transparent !important; border: none !important; opacity: 0; width: 44px; height: 44px; }
 
-        .view-toggle-invisible {
-            background: transparent !important;
-            border: none !important;
-            opacity: 0; 
-            width: 44px;
-            height: 44px;
-        }
-
-        .search-container { position: relative; max-width: 350px; margin: 1.5rem auto; }
-        .search-input { width: 100%; background: rgba(30, 41, 59, 0.7); border: 1px solid var(--glass-border); border-radius: 9999px; padding: 12px 45px 12px 20px; color: white; font-size: 0.95rem; transition: all 0.3s ease; outline: none; }
+        .search-input { width: 100%; background: rgba(30, 41, 59, 0.7); border: 1px solid var(--glass-border); border-radius: 9999px; padding: 12px 45px 12px 20px; color: white; font-size: 0.95rem; outline: none; }
         body.light-blue-mode .search-input { background: white; color: black; border-color: #bae6fd; }
-        .search-input:focus { border-color: var(--accent-light); box-shadow: 0 0 15px rgba(147, 197, 253, 0.2); }
-        .search-icon { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--accent-blue); pointer-events: none; }
 
         .card-3d {
             background: radial-gradient(circle, var(--card-gradient-center) 0%, var(--card-gradient-edge) 100%);
             backdrop-filter: blur(14px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); --category-color: var(--accent-blue); --category-glow: rgba(59, 130, 246, 0.25);
+            position: relative; transition: all 0.4s; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        .card-3d:hover { transform: translateY(-10px); box-shadow: 0 15px 40px var(--category-glow); border-color: var(--category-color); filter: brightness(1.1); }
+        .card-3d:hover { transform: translateY(-10px); }
 
-        .yellow-action-btn { background-color: var(--accent-yellow); color: #000; font-weight: 800; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px; border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important; }
+        .yellow-action-btn { background-color: var(--accent-yellow); color: #000; font-weight: 800; border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important; transition: all 0.3s; }
         .yellow-action-btn:hover { background-color: #eab308; box-shadow: 0 0 15px rgba(250, 204, 21, 0.5); }
         
-        .filter-btn { background-color: var(--category-bg); color: var(--category-text); padding: 10px 20px; font-weight: bold; font-size: 0.85rem; cursor: pointer; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; white-space: nowrap; --hover-color: var(--accent-blue); border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important; transition: all 0.3s; }
+        .filter-btn { background-color: var(--category-bg); color: var(--category-text); padding: 10px 20px; font-weight: bold; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important; transition: all 0.3s; cursor: pointer; }
         .filter-btn.active-filter { box-shadow: 0 0 15px var(--accent-blue); border-color: var(--accent-blue); }
 
-        #mobileCategoryTrigger { display: none; width: fit-content; margin: 1.5rem auto 0.5rem auto; background: black; border: 2px solid var(--accent-blue); color: var(--category-text); padding: 12px 28px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important; align-items: center; gap: 12px; }
-        body.light-blue-mode #mobileCategoryTrigger { background: white; color: black; border-color: #3b82f6; }
+        #mobileCategoryTrigger { display: none; width: fit-content; margin: 1.5rem auto; background: black; border: 2px solid var(--accent-blue); color: var(--category-text); padding: 12px 28px; font-weight: bold; border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square) !important; align-items: center; gap: 12px; }
+        body.light-blue-mode #mobileCategoryTrigger { background: white; color: black; }
+
         #categoryModalOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); backdrop-filter: blur(12px); z-index: 2000; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        .category-modal-content { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 1rem; }
-
-        @media (max-width: 768px) { #mobileCategoryTrigger { display: flex; } #desktopFilterBar { display: none; } }
-        @media (min-width: 769px) { #desktopFilterBar { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin: 2rem 0; } }
-
-        body.force-mobile-view #mobileCategoryTrigger { display: flex !important; }
-        body.force-mobile-view #desktopFilterBar { display: none !important; }
-        body.force-mobile-view #presentationsGrid { grid-template-columns: 1fr !important; }
-
-        .category-num-badge { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: white; color: black; font-size: 0.7rem; font-weight: 900; margin-left: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
+        
         .modal-overlay { background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(10px); display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: var(--modal-bg); color: var(--text-on-modal); max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 2.5rem; border: 2px solid var(--accent-blue); border-radius: var(--radius-round) var(--radius-soft-square) var(--radius-round) var(--radius-soft-square); box-shadow: 0 0 50px rgba(59, 130, 246, 0.2); position: relative; }
-        .category-chip { background-color: var(--category-bg); color: var(--category-text); font-size: 0.75rem; font-weight: bold; padding: 6px 14px; margin-bottom: 1rem; display: inline-flex; align-items: center; border-radius: 8px; border-right: 4px solid var(--accent-blue); text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         
         footer { margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.3); }
         body.light-blue-mode footer { background: #bae6fd; border-top-color: #7dd3fc; }
@@ -157,21 +124,19 @@
             </div>
         </div>
         
-        <div id="desktopFilterBar"></div>
+        <div id="desktopFilterBar" class="hidden md:flex flex-wrap gap-2 justify-center mb-8"></div>
         <button id="mobileCategoryTrigger" onclick="openCategoryModal()">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             <span id="currentMobileCategory">כל הקטגוריות</span>
         </button>
 
-        <div class="search-container">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" cy="11" x2="16.65" cy="16.65"></line></svg>
+        <div class="search-container relative max-w-sm mx-auto mb-4">
             <input type="text" id="searchInput" class="search-input" placeholder="חיפוש כלי..." oninput="handleSearch()">
         </div>
         
-        <div id="counterContainer" class="flex justify-center">
-            <div class="total-counter" style="background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 6px 16px; border-radius: 999px; font-size: 0.85rem; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 1.5rem;">
-                <p>מספר הכלים במערכת:</p>
-                <span id="totalToolsBadge" style="background: var(--accent-blue); color: #fff; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.75rem;">0</span>
+        <div class="flex justify-center mb-8">
+            <div class="bg-blue-900/20 border border-blue-500/50 px-4 py-1 rounded-full text-blue-400 text-sm font-bold flex items-center gap-2">
+                מספר הכלים במערכת: <span id="totalToolsBadge" class="bg-blue-500 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs">0</span>
             </div>
         </div>
     </header>
@@ -179,101 +144,58 @@
     <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 mb-16" id="presentationsGrid"></main>
 
     <div id="categoryModalOverlay" onclick="closeCategoryModal()">
-        <div class="text-xl font-bold mb-8 tracking-widest uppercase text-center" style="color: var(--text-on-modal)">בחר קטגוריה</div>
-        <div class="category-modal-content px-4" id="mobileModalList" onclick="event.stopPropagation()"></div>
-        <button onclick="closeCategoryModal()" class="mt-12 font-bold border-b border-slate-500" style="color: var(--text-on-modal); opacity: 0.6">ביטול וסגירה</button>
+        <div class="text-xl font-bold mb-8 uppercase text-center" style="color: var(--text-on-modal)">בחר קטגוריה</div>
+        <div class="flex flex-col gap-3 w-full max-w-xs" id="mobileModalList" onclick="event.stopPropagation()"></div>
+        <button onclick="closeCategoryModal()" class="mt-8 font-bold border-b border-slate-500" style="color: var(--text-on-modal); opacity: 0.6">ביטול</button>
     </div>
 
-    <footer class="w-full py-8 mt-12 text-center">
-        <div class="max-w-6xl mx-auto px-4">
-            <p class="text-slate-500 text-sm tracking-widest uppercase mb-1">המאגר נוצר ע"י <span class="text-[#3b82f6] font-bold">איתי בן טל</span></p>
-            <p class="text-slate-500 text-xs tracking-widest uppercase">אורט שחקים נהריה</p>
-            <div class="mt-4 w-16 h-0.5 bg-[#3b82f6] mx-auto opacity-30"></div>
-        </div>
+    <footer class="w-full py-8 text-center">
+        <p class="text-slate-500 text-sm uppercase">המאגר נוצר ע"י <span class="text-blue-500 font-bold">איתי בן טל</span> | אורט שחקים נהריה</p>
     </footer>
 
     <div id="infoModal" class="modal-overlay">
         <div class="modal-content text-right">
-            <span class="absolute top-4 left-4 cursor-pointer text-slate-500 hover:text-[#3b82f6]" onclick="closeModal()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </span>
-            <h2 id="modalTitle" class="text-2xl font-bold mb-6 text-[#3b82f6]"></h2>
-            <div id="modalBody" class="leading-relaxed text-base md:text-lg whitespace-pre-line border-t border-slate-500/20 pt-4"></div>
-            <button onclick="closeModal()" class="mt-10 w-full yellow-action-btn py-4 font-bold">סגור חלון מידע</button>
+            <h2 id="modalTitle" class="text-2xl font-bold mb-6 text-blue-500"></h2>
+            <div id="modalBody" class="leading-relaxed whitespace-pre-line border-t border-white/10 pt-4"></div>
+            <button onclick="closeModal()" class="mt-10 w-full yellow-action-btn py-4 font-bold">סגור</button>
         </div>
     </div>
 
     <script>
-        const categoryMap = {
-            'שיתופיות': 1, 'אינטראקטיביות': 2, 'עיצוב ויצירה': 3, 'משחקים': 4,
-            'כלים שעושים חיים קלים': 5, 'מאגרי מדיה': 6, 'כלי גוגל': 7
-        };
-
+        const categoryMap = { 'שיתופיות': 1, 'אינטראקטיביות': 2, 'עיצוב ויצירה': 3, 'משחקים': 4, 'כלים שעושים חיים קלים': 5, 'מאגרי מדיה': 6, 'כלי גוגל': 7 };
         const presentations = [
-            { id: 1, title: "Padlet", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1EJkXEIy4E1De2FD1pdPY8Ux9jPEQIHe5/view?usp=sharing", siteUrl: "https://padlet.com", description: "לוח קיר דיגיטלי לריכוז רעיונות ותוצרים ויזואליים בזמן אמת.", 
-                info: "• ניהול סיעור מוחות כיתתי: כולם כותבים בו-זמנית על קיר אחד משותף.\n• איסוף תוצרי למידה: ריכוז תמונות, קבצים, קישורים וסרטונים שיצרו התלמידים במקום אחד.\n• הערכת עמיתים (Peer Assessment): התלמידים יכולים להגיב זה לזה, לסמן 'לייק' ולדרג עבודות.\n• ארגון מידע במבנה גמיש: ניתן לסדר את הלוח כמפה, כציר זמן, כטורים או כקיר חופשי.\n• שימוש בפורמט 'טורים' לניהול שלבים בפרויקטים כיתתיים (K-W-L).\n• הלוח נשמר לאורך זמן וניתן להטמעה באתר הכיתה או ב-Google Classroom." },
-            { id: 2, title: "ThingLink", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/1_TS0ZEg3vJW2uPbbnO12vneIdTavgLz6/view?usp=sharing", siteUrl: "https://www.thinglink.com", description: "הפוך כל תמונה למפת למידה אינטראקטיבית עם נקודות מידע.", 
-                info: "• העשרת תמונות: הוספת נקודות חמות (Hotspots) הכוללות טקסט, אודיו, וידאו וקישורים.\n• סיורים וירטואליים: יצירת חווית למידה סוחפת באמצעות תמונות 360 מעלות.\n• 'מפות ידע': בניית סביבה שבה הלומד חוקר את החומר בקצב אישי ובאופן לא לינארי.\n• הנגשת תוכן: שימוש בכלי Immersive Reader להקראת הטקסט בתוך הנקודות.\n• תוצרי תלמידים: פלטפורמה מצוינת להצגת פרויקטי חקר על גבי מפה או אינפוגרפיקה." },
-            { id: 34, title: "Google Keep", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1gZaplTezjXfM3xSXFPeqb2HUfgWT8ery/view?usp=drive_link", siteUrl: "https://keep.google.com", description: "פנקס רשימות דיגיטלי לניהול רעיונות ותזכורות.", 
-                info: "• ארגון אישי: יצירת פתקיות צבעוניות ורשימות תיוג (To-Do Lists) לניהול משימות יומיות.\n• סנכרון מלא: המידע נגיש מהטלפון ומהמחשב בכל רגע נתון ובזמן אמת.\n• מולטימדיה: הוספת תמונות, הקלטות קוליות (עם תמלול אוטומטי) ושרבוטים לפתקים.\n• חילוץ טקסט (OCR): צילום מסמך והפיכתו לטקסט חי הניתן לעריכה בגוגל דוקס.\n• עבודה שיתופית: שיתוף פתקים עם עמיתים לתכנון משותף של מערכי שיעור או משימות צוות.\n• תזכורות חכמות: הגדרת תזכורות לפי זמן או לפי מיקום גיאוגרפי." },
-            { id: 35, title: "Google Tasks", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1U-2v9ww4vafP6P4cDyUZ4Y2Jwdpk-GlM/view?usp=drive_link", siteUrl: "https://tasks.google.com", description: "ניהול משימות פשוט וממוקד המוטמע בתוך המייל והיומן.", 
-                info: "• ניהול זמן: יצירת רשימות משימות מהירות לניהול שוטף של העבודה הפדגוגית והאדמיניסטרטיבית.\n• שילוב עם Gmail: הפיכת אימיילים למשימות בתוך Gmail בלחיצת כפתור (Drag & Drop).\n• שילוב עם Calendar: הגדרת תאריכי יעד למשימות, שיופיעו אוטומטית ביומן שלכם.\n• ארגון היררכי: פירוט משימות גדולות לתת-משימות קטנות וברות ביצוע.\n• כלי עזר לתלמידים: פיתוח מיומנויות של ניהול זמן והתארגנות עצמית בלמידה מרחוק או בפרויקטים." },
-            { id: 36, title: "Google Sites", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1od4KE3XRaA_71InAjECTQnY864o-DZaK/view?usp=drive_link", siteUrl: "https://sites.google.com", description: "בניית אתרים פשוטה ואינטואיטיבית ללא צורך בכתיבת קוד.", 
-                info: "• מרכזי למידה: יצירת אתר המרכז את כל חומרי הלימוד, הסרטונים והמשימות עבור נושא מסוים.\n• אתר כיתה: בניית פלטפורמה לתקשורת עם הורים ותלמידים המציגה לוחות זמנים והודעות.\n• פורטפוליו דיגיטלי: תלמידים בונים אתר אישי המציג את ההתקדמות והתוצרים שלהם לאורך השנה.\n• ממשק גרירה והשלכה: הטמעה קלה של קבצי Drive, מצגות, גליונות נתונים וסרטוני YouTube.\n• תצוגה מותאמת: האתר נראה מצוין בטלפונים, טאבלטים ומחשבים באופן אוטומטי.\n• הרשאות: שליטה מלאה על מי יכול לצפות באתר (ציבורי או רק בתוך חשבון הארגון)." },
-            { id: 37, title: "Google Gemini", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1Jkq0NO9GQ2IgdfiWsdDPFv_ctPCoOfeh/view?usp=drive_link", siteUrl: "https://gemini.google.com", description: "עוזר בינה מלאכותית (AI) רב-תחומי ליצירת תוכן ומחקר.", 
-                info: "• סיעור מוחות פדגוגי: קבלת רעיונות למערכי שיעור יצירתיים, פתיחות מעניינות ומשימות חקר.\n• כתיבת תוכן: ניסוח מיילים להורים, כתיבת סיפורים קצרים לשימוש בכיתה או פישוט טקסטים מורכבים.\n• ניתוח נתונים: העלאת קבצים וקבלת סיכומים, ניתוח טבלאות ומציאת מגמות.\n• תמיכה בשפות: תרגום ברמה גבוהה והסבר דקדוקי במגוון שפות.\n• Imagen 3: יצירת איורים ותמונות מקוריות לשימוש במצגות ובחומרי לימוד.\n• בינה מלאכותית אחראית: כלי עזר רב עוצמה לשיפור היעילות והיצירתיות של המורה." },
-            { id: 40, title: "Nano Banana", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1qaGQFcsYv12G32TNnCrdTmsuQuakLQ1U/view?usp=drive_link", siteUrl: "https://gemini.google.com", description: "המודל המתקדם של גוגל ליצירת תמונות מרהיבות מטקסט.", 
-                info: "• המחשה ויזואלית: יצירת תמונות ריאליסטיות או איורים המבוססים על תיאור מילולי בלבד.\n• שדרוג חומרי למידה: הוספת תוכן ויזואלי ייחודי ומקורי למצגות, דפי עבודה ואתרי Sites.\n• פיתוח דמיון: תלמידים כותבים הנחיות (Prompts) כדי לראות איך התיאור שלהם הופך ליצירה.\n• התאמת סגנון: ניתן לבקש תמונות בסגנונות אמנותיים שונים (ציור שמן, קומיקס, צילום היסטורי ועוד).\n• פתרון מהיר: אין צורך לחפש שעות במנועי חיפוש – פשוט מתארים ומקבלים תמונה מדויקת." },
-            { id: 41, title: "Google Gems", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1Jkq0NO9GQ2IgdfiWsdDPFv_ctPCoOfeh/view?usp=drive_link", siteUrl: "https://gemini.google.com/gems", description: "בניית מומחי AI מותאמים אישית לצרכים פדגוגיים ספציפיים.", 
-                info: "• מומחים נושאיים: יצירת 'ג'ם' המתמחה במקצוע מסוים (למשל: בוט המתמחה בשייקספיר או בפתרון בעיות באלגברה).\n• הנחיות קבועות: הגדרת 'חוקי משחק' ל-AI כך שתמיד יענה בטון מסוים או ברמת שפה מוגדרת.\n• עוזר הוראה: בניית בוט שעוזר למורה בבדיקת עבודות לפי מחוון ספציפי.\n• תמיכה בתלמידים: יצירת Gems המשמשים כחונכים אישיים לתלמידים בנושאים ממוקדים.\n• שיתוף: ניתן לשתף את ה-Gems שנוצרו עם משתמשים אחרים בארגון (מורים אחרים בבית הספר)." },
-            { id: 42, title: "Google Earth", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1eNzEVxvUDarurT1q1Op0zSSZLTmBQ2Fe/view?usp=drive_link", siteUrl: "https://earth.google.com", description: "חקר העולם בתלת-ממד, סיורים וירטואליים ומפות היסטוריות.", 
-                info: "• חקר גיאוגרפי: סיור בכל נקודה על פני הגלובוס בתצוגת תלת-ממד מרהיבה לשיעורי גיאוגרפיה וסביבה.\n• Voyager: גישה לסיורים לימודיים מובנים שהוכנו ע\"י מומחים בנושאי טבע, היסטוריה ותרבות.\n• ציר זמן (Timelapse): צפייה בשינויים שעבר כדור הארץ ב-40 השנים האחרונות (המסת קרחונים, צמיחת ערים).\n• מדידות: כלי למדידת מרחקים ושטחים המאפשר חיבור לשיעורי מתמטיקה בצורה מוחשית.\n• פרויקטים: תלמידים יכולים ליצור 'סיפור מפה' הכולל נקודות ציון עם טקסט ותמונות משלהם." },
-            { id: 38, title: "Google Vids", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/18OTH4Y6Q5S59IR2pZciMtWMEEO2UCv1g/view?usp=drive_link", siteUrl: "https://vids.google.com", description: "אפליקציה ליצירת סרטוני עבודה והדרכה מבוססת בינה מלאכותית.", 
-                info: "• יצירת סרטונים מהירה: ה-AI עוזר לבנות תסריט (Script) וסטוריבורד (Storyboard) על סמך נושא.\n• עריכה פשוטה: ממשק המבוסס על שקפים (דומה ל-Slides) מה שהופך את העריכה לקלה במיוחד.\n• קריינות (Voiceover): הוספת קריינות אוטומטית במגוון קולות או הקלטה עצמית מהירה בתוך הכלי.\n• תוצרי למידה: תלמידים יכולים להגיש עבודות בפורמט וידאו מקצועי במקום מצגת סטטית.\n• שיתוף בטוח: הסרטונים נשמרים ב-Drive וניתנים לשיתוף מוגן בתוך הארגון." },
-            { id: 39, title: "NotebookLM", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1rugVVLRSUFbrk--CjkZOraXCWlzalPb3/view?usp=drive_link", siteUrl: "https://notebooklm.google.com", description: "עוזר מחקר אישי מבוסס AI המשתמש במסמכים שלכם כמקור ידע.", 
-                info: "• מחקר מבוסס מקורות: בניגוד ל-AI כללי, NotebookLM עונה רק על סמך המסמכים שהעליתם.\n• סיכומים חכמים: יצירת סיכומי למידה, מדריכי לימוד ושאלות חזרה אוטומטיות מהחומר הלימודי.\n• פודקאסט שמע: הפיכת מסמכים משעממים לשיחה קולית מרתקת בין שני קריינים (Audio Overview).\n• ארגון ידע: ריכוז של עשרות קבצי PDF ומאמרים לתוך מרחב עבודה אחד חכם.\n• דיוק אקדמי: הכלי מספק הערות שוליים המפנות בדיוק למקום במסמך שממנו נלקח המידע." },
-            { id: 27, title: "אורט קמפוס", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/1yjxfdbD3IVMULEEtEGH86pjSzf0lUFg2/view?usp=sharing", siteUrl: "https://campus.ort.org.il/", description: "הקמפוס הווירטואלי של רשת אורט. פלטפורמה לניהול למידה.", 
-                info: "• קורסים דיגיטליים: גישה למאות קורסים במקצועות הליבה וההרחבה המותאמים לתכנית הלימודים.\n• Moodle מבוסס: מערכת ניהול למידה (LMS) מתקדמת המאפשרת הגשת משימות ומעקב אחר ציונים.\n• אינטגרציה: כניסה אחידה (SSO) באמצעות חשבון אורט לכל המערכות.\n• מרחב מורה: יכולת של המורה לנהל קבוצות לימוד ספציפיות, לראות את התקדמות התלמידים ולתת משוב.\n• למידה עצמאית: תלמידים יכולים להתקדם בקצב שלהם ביחידות לימוד אינטראקטיביות." },
-            { id: 3, title: "Mentimeter", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1ocybR8PcGro2Ue6GyS4a8FgwhDWB9Gzx/view?usp=sharing", siteUrl: "https://www.mentimeter.com", description: "מצגות אינטראקטיביות לשיתוף קהל ומשוב חי במגוון סקרים.", 
-                info: "• מעורבות (Engagement): הפיכת הקהל ממשתתף פסיבי לאקטיבי באמצעות שאלות ותגובות בלייב.\n• ענני מילים (Word Clouds): כלי מצוין לסיעור מוחות כיתתי המציג את המילים הנפוצות בצורה ויזואלית.\n• סקרים ובחנים: קיום הצבעות או בחנים מהירים בתוך המצגת עם תוצאות המוצגות באופן מיידי.\n• אנונימיות: מאפשר לתלמידים ביישנים להביע את דעתם או לשאול שאלות ללא חשש.\n• סיכום שיעור: קבלת רפלקציה מהירה מהתלמידים על הבנת החומר בסוף השיעור." },
-            { id: 4, title: "Canva", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1cDj4dBegxxz_0x3Q0n4_QaefX196Gqy8/view?usp=sharing", siteUrl: "https://www.canva.com", description: "פלטפורמת עיצוב גרפי ליצירת מצגות, כרזות ותוכן ויזואלי.", 
-                info: "• עיצוב מקצועי בקלות: שימוש באלפי תבניות מוכנות לפוסטרים, מצגות, דפי עבודה ותעודות.\n• Canva for Education: גישה מלאה לכל הכלים המתקדמים (Premium) בחינם למורים ותלמידים.\n• עבודה שיתופית: תלמידים יכולים לעבוד על אותו עיצוב בו-זמנית מבתיהם.\n• וידאו ואנימציה: יצירת סרטוני הדרכה ואינפוגרפיקות מונפשות בצורה פשוטה.\n• בינה מלאכותית: כלי ה-Magic Studio מאפשרים הסרת רקע, יצירת תמונות וכתיבת טקסטים בתוך העיצוב.", guideUrl: "https://www.canva.com/design/DAFRIjc8RoE/ByM_PVHabX08_95vrE-03A/view?utm_content=DAFRIjc8RoE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc086b04346" },
-            { id: 18, title: "Photopea", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1w1bpkfQJyLOPvlsAG6YHxabKc39PLOyv/view?usp=sharing", siteUrl: "https://www.photopea.com", description: "עורך תמונות מקצועי וחינמי בדפדפן, תואם פוטושופ.", 
-                info: "• עריכה מקצועית: עבודה עם שכבות (Layers), מסכות (Masks), ופילטרים מתקדמים.\n• תמיכה מלאה בקבצי Photoshop (PSD) ופורמטים מקצועיים.\n• חינמי לחלוטין: כל היכולות של תוכנות עיצוב יקרות בתוך הדפדפן ללא צורך בהתקנה.\n• לימודי עיצוב: כלי מושלם ללימוד עקרונות הגרפיקה המקצועית בבתי ספר.\n• תיקון תמונות: שיקום צבעים, הסרת פגמים ושדרוג איכות התמונה בקלות.\n• תמיכה מלאה בעברית ובפונטים עבריים." },
-            { id: 33, title: "Figma", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1K5kVSCYpnKUUf8KtB-q8EOvODL5s8jOk/view?usp=drive_link", siteUrl: "https://www.figma.com", description: "פלטפורמה מקצועית לעיצוב ממשקים (UI/UX) ושיתוף פעולה ויזואלי.", 
-                info: "• עיצוב מוצר: בניית אבות-טיפוס (Prototypes) של אפליקציות ואתרי אינטרנט.\n• FigJam: לוח לבן שיתופי (Whiteboard) המיועד לסיעור מוחות, מיפוי תהליכים ומשחקי חשיבה.\n• שיתופיות בזמן אמת: עבודה של עשרות תלמידים יחד על אותו קובץ עיצוב.\n• ספריות עיצוב: יצירת רכיבים (Components) שניתן לעשות בהם שימוש חוזר לאורך כל הפרויקט.\n• חדשנות: הכלי המוביל בעולם כיום לעיצוב חוויית משתמש ופיתוח רעיונות טכנולוגיים." },
-            { id: 31, title: "Tinkercad", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1ZbsYfD5GEP298ccEJWdb3UdsPKDGjsyD/view?usp=sharing", siteUrl: "https://www.tinkercad.com", description: "פלטפורמה לתכנון בתלת-ממד ועיצוב מעגלים אלקטרוניים.", 
-                info: "• עיצוב 3D: בניית מודלים תלת-ממדיים פשוטים ומורכבים המיועצאים להדפסת תלת-ממד.\n• סימולציית מעגלים: תכנון ובדיקת מעגלים אלקטרוניים הכוללים ארדואינו (Arduino) בתוך סביבה בטוחה.\n• Codeblocks: יצירת צורות גיאומטריות באמצעות כתיבת קוד בלוקים (דומה ל-Scratch).\n• ניהול כיתה: המורה יכול לראות את כל הפרויקטים של התלמידים בזמן אמת בלוח בקרה אחד.\n• לימוד פיזיקה: כלי מצוין להמחשת מושגים בחשמל, הנדסה וגיאומטריה מרחבית." },
-            { id: 6, title: "Genially", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/11lWrpl9ZwvyuED-13lEyh06SIAOHTaAx/view?usp=sharing", siteUrl: "https://genial.ly", description: "יצירת מצגות, משחקים ואינפוגרפיקות אינטראקטיביות.", 
-                info: "• גיימיפיקציה: בניית חדרי בריחה דיגיטליים (Escape Rooms) ומשחקי למידה מורכבים.\n• אינפוגרפיקות חיות: יצירת תרשימים ודיאגרמות שמתעוררים לחיים בלחיצה או בריחוף עכבר.\n• מצגות אינטראקטיביות: המצגת הופכת לאתר קטן שבו המשתמש בוחר את נתיב ההתקדמות.\n• תבניות מוכנות: שימוש במאות תבניות למשחקי טריוויה, 'מי רוצה להיות מיליונר' ועוד.\n• הטמעה: ניתן להטמיע את התוצרים בקלות בכל פלטפורמת למידה (Classroom, Moodle, Sites)." },
-            { id: 5, title: "Kahoot!", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1v5jVMrb3jEtjNpRVX7Qs8eDKrtb5zij8/view?usp=sharing", siteUrl: "https://kahoot.com", description: "הפוך למידה למשחק דרך חידונים תחרותיים.", 
-                info: "• למידה חווייתית: הפיכת בדיקת הידע לתחרות מותחת ומהנה המעוררת את כל הכיתה.\n• חידונים מהירים: יצירת שאלות טריוויה (אמריקאיות) עם מוזיקה ואפקטים קצביים.\n• בדיקת הבנה: כלי מצוין לסיכום פרק או בדיקת ידע קודם בתחילת נושא חדש.\n• דוחות: קבלת ניתוח מפורט בסוף המשחק המראה היכן התלמידים התקשו ומי זקוק לחיזוק.\n• בנק שאלות: שימוש במיליוני חידונים מוכנים שנוצרו ע\"י קהילת המורים העולמית." },
-            { id: 13, title: "Quizizz", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1uZ1NXKhmRR5ZQKnpuhGDay1HwLDXdSwL/view?usp=sharing", siteUrl: "https://quizizz.com", description: "חידונים בקצב אישי הכוללים דוחות התקדמות וממים משעשעים.", 
-                info: "• קצב אישי: התלמידים עונים על השאלות בקצב שלהם (לא תלויים בלוח המשותף של המורה).\n• שיעור אינטראקטיבי: שילוב שקפי תוכן יחד עם שאלות בחינה בתוך מצגת אחת.\n• הנגשה: הכלי כולל הקראת שאלות בקול (כלי הנגשה מובנה ללקויות למידה).\n• ממים והומור: שילוב של תמונות משעשעות לאחר כל תשובה להפגת המתח והגברת ההנאה.\n• שיעורי בית: אפשרות לשליחת החידון כמשימה לבית עם דד-ליין מוגדר ודיווח אוטומטי למורה." },
-            { id: 16, title: "Baamboozle", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1W0FoGzCh50iKb1ko4UD7R5WKoC0CSUlN/view?usp=sharing", siteUrl: "https://www.baamboozle.com", description: "משחקי צוותים ללא צורך במכשירים אישיים, מושלם לחימום כיתתי.", 
-                info: "• פשטות: אין צורך שלכל תלמיד יהיה טלפון או מחשב – כולם משחקים מול המסך המרכזי.\n• גיבוש כיתתי: חלוקת הכיתה לצוותים המתחרים זה בזה ומעודדים זה את זה.\n• אלמנט ההפתעה: 'קלפי כוח' שיכולים להוסיף או להוריד נקודות באופן מפתיע משנים את מאזן הכוחות.\n• יצירה מהירה: יצירת משחק תוך דקה אחת בלבד באמצעות שאלות פשוטות.\n• הפוגה וחימום: כלי מושלם לפתיחת שיעור או למשחק של 5 דקות לפני הצלצול." },
-            { id: 17, title: "Nearpod", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1vZDlkiWFT-QzLBNmWiemms6ZxTipCiCz/view?usp=sharing", siteUrl: "https://nearpod.com", description: "שיעורים אינטראקטיביים המשלבת מצגות, משחקים ומציאות מדומה.", 
-                info: "• שליטה מלאה: המורה מעביר את השקפים במכשירים של כל התלמידים בו-זמנית.\n• מגוון פעילויות: ציור על המסך, שאלות פתוחות, התאמת זוגות, שיתוף לוח מודעות ועוד.\n• מציאות מדומה (VR): יציאה לסיורים וירטואליים באתרים מסביב לעולם ישירות מהמצגת.\n• Time to Climb: משחק תחרותי המעוצב כמרוץ במעלה ההר לסיכום השיעור.\n• משוב בזמן אמת: המורה רואה את התשובות של כולם על המסך שלו ויכול לתת התייחסות מיידית." },
-            { id: 20, title: "Flippity", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1EquhXBSUh1gzf8-G08hjNjJmq-H6yOoU/view?usp=drive_link", siteUrl: "https://www.flippity.net", description: "הפוך גליונות גוגל למשחקים כמו גלגלי מזל וחדרי בריחה.", 
-                info: "• פתרון טכנולוגי פשוט: הכנסת נתונים לתוך גליון Google Sheets הופכת אותם למשחק מעוצב.\n• גלגל מזל: כלי לבחירה אקראית של שמות תלמידים להשתתפות בשיעור.\n• כרטיסיות זיכרון: למידת מושגים ושפות באמצעות כרטיסיות אינטראקטיביות הכוללות שמע ותמונות.\n• מנעולי פריצה: יצירת חדרי בריחה דיגיטליים המבוססים על פתרון חידות טקסטואליות.\n• אין צורך בהרשמה: התלמידים פשוט מקבלים קישור ומתחילים לשחק ללא פרוצדורה מסובכת." },
-            { id: 10, title: "Wordwall", category: "משחקים", driveUrl: "https://drive.google.com/file/d/16Kaql2LZyy9-VCAUuoOBBFyEMwqMmLAV/view?usp=drive_link", siteUrl: "https://wordwall.net", description: "יצירת פעילויות מותאמות אישית במגוון תבניות משחק.", 
-                info: "• מגוון תבניות: המרת אותו תוכן למגוון משחקים (מבוך, התאמת זוגות, גלגל מזל, בלונים ועוד).\n• המרה בלחיצה: ניתן להחליף את סוג המשחק בכל רגע מבלי להקליד מחדש את השאלות.\n• גרסאות להדפסה: ניתן להוריד את המשחקים כדפי עבודה בפורמט PDF לשימוש פיזי בכיתה.\n• לוח תוצאות: ניהול טבלת שיאים המעודדת את התלמידים לחזור על המשימה שוב ושוב.\n• קהילת מורים: גישה למאגר אדיר של משחקים מוכנים שניתן לערוך ולהתאים אישית." },
-            { id: 11, title: "Classroomscreen", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1pJDqx_K1ZKV-bEtRGHj6Sx8YUgcwuwC6/view?usp=sharing", siteUrl: "https://classroomscreen.com", description: "ניהול מסך הכיתה עם כלים כמו טיימר, רמות רעש וקודי QR.", 
-                info: "• ארגון המסך: הצגת כל ההנחיות והכלים לשיעור על מסך אחד מעוצב (טיימר, לוח, קודי QR).\n• מד רעש: כלי ויזואלי המראה לתלמידים את עוצמת הדיבור שלהם ומסייע בשמירה על השקט.\n• שפת סימנים ויזואלית: הצגת סמלים המגדירים את אופן העבודה (שקט, לחישה, עבודה בזוגות).\n• קודי QR: יצירה והצגה מהירה של קודי גישה לאתרים או סרטונים עבור התלמידים מהלוח.\n• ניהול זמן: שעון חול וטיימר בולטים המסייעים בניהול זמן המשימות בכיתה." },
-            { id: 32, title: "Classe", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1-A4JjSMc5G3XhFszhUiPaEdp7V0P7UZh/view?usp=sharing", siteUrl: "https://www.classe.world", description: "מערכת לניהול כיתה חכם, הכוללת מפות הושבה וניהול למידה.", 
-                info: "• מפת הושבה דינמית: בניית סידור ישיבה חכם המבוסס על הצרכים הלימודיים והחברתיים של התלמידים.\n• חלוקה לקבוצות: יצירת צוותי עבודה הומוגניים או הטרוגניים בלחיצת כפתור אחת.\n• מעקב השתתפות: סימון השתתפות והתנהגות תלמידים במהלך השיעור בצורה דיגיטלית ומהירה.\n• הגרלת תלמידים: בחירה הוגנת של תלמידים להשתתפות ללא הטיות.\n• ניתוח נתוני כיתה: קבלת תובנות על הדינמיקה הכיתתית והתקדמות התלמידים לאורך זמן." },
-            { id: 7, title: "remove.bg", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://www.remove.bg", description: "הסרת רקע מתמונות בתוך שניות בעזרת בינה מלאכותית.", 
-                info: "• הסרה אוטומטית: ניקוי הרקע מכל תמונה בתוך שניות ללא צורך בידע גרפי כלל.\n• עיצוב נקי: יצירת קבצי PNG שקופים שמשתלבים מצוין בתוך מצגות, אתרים וכרזות.\n• חיסכון בזמן: הכלי חוסך למורה שעות של עבודה ידנית בתוכנות עריכה מורכבות.\n• איכות גבוהה: הכלי מזהה בצורה חכמה שערות וקצוות דקים ומפריד אותם מהרקע בצורה מדויקת." },
-            { id: 8, title: "iLovePDF", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1KOA268-vL0hoBkxBhtFtyqWitg5Oz5kY/view?usp=sharing", siteUrl: "https://www.ilovepdf.com", description: "סט כלים לניהול, המרה ועריכת קבצי PDF בקלות.", 
-                info: "• מיזוג ופיצול: חיבור מספר קבצי PDF לקובץ אחד מסודר.\n• פיצול קובץ PDF גדול למספר קבצים נפרדים (למשל משימות בודדות).\n• המרת קבצים: הפיכת PDF ל-Word, PowerPoint או Excel ולהיפך לצורך עריכה.\n• דחיסה (Compress): הקטנת גודל הקובץ כדי שניתן יהיה לשלוח אותו בקלות במייל או בוואטסאפ.\n• עריכה: הוספת טקסט, תמונות, חתימות ומספרי עמודים לקבצי PDF קיימים." },
-            { id: 28, title: "123Apps", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1LufYcD-Ok5nuWM_inhMN612JbjHmjEZl/view?usp=sharing", siteUrl: "https://123apps.com/", description: "סט כלים מקוון לעריכת וידאו, אודיו וניהול PDF.", 
-                info: "• עריכת וידאו: חיתוך סרטונים, הוספת כתוביות, שינוי מהירות וסיבוב התמונה ללא התקנת תוכנה.\n• עריכת אודיו: חיתוך קטעי קול והפיכת וידאו (MP4) לקבצי שמע (MP3).\n• הקלטה: הקלטת מסך המחשב להכנת סרטוני הדרכה או הקלטת קול ישירות מהדפדפן.\n• המרת פורמטים: המרה בין עשרות סוגי קבצים (תמונות, מסמכים, ארכיון ZIP).\n• כלי עזר חינמיים: פתרון מלא לכל הצרכים הטכניים היומיומיים של המורה והתלמיד במקום אחד." },
-            { id: 30, title: "TinyWow", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1PgRcU5CiKHKVJFKgTCjT4vCDFbPPHeMW/view?usp=drive_link", siteUrl: "https://tinywow.com/", description: "מאות כלים חינמיים לטיפול בקבצים, תמונות, וידאו וכתיבה.", 
-                info: "• כלי AI: כתיבת טקסטים, שיפור ניסוחים ויצירת פסקאות שלמות בעזרת בינה מלאכותית.\n• עריכת תמונות: הסרת אלמנטים לא רצויים מתמונות (Object Removal) וטשטוש רקעים.\n• ניהול PDF: הוספת חתימה, מיזוג, פיצול והמרת טבלאות PDF ל-Excel בצורה חכמה.\n• חילוץ טקסט (OCR): הפיכת תמונות או מסמכים סרוקים לטקסט חי הניתן לעריכה.\n• אין הגבלות: מאות כלים שזמינים ללא הרשמה וללא תשלום, הכל תחת קורת גג אחת." },
-            { id: 9, title: "Pixabay", category: "מאגרי מדיה", driveUrl: "https://drive.google.com/file/d/1S_HBANOnFfFrMjtJ_q7l5tf_JKqu2s1W/view?usp=sharing", siteUrl: "https://pixabay.com", description: "מאגר תמונות וסרטונים לשימוש חופשי ללא זכויות יוצרים.", 
-                info: "• מאגר ענק: גישה למיליוני תמונות, איורים, וקטורים, סרטונים ומוזיקה באיכות גבוהה מאוד.\n• זכויות יוצרים: כל המדיה בחינם לשימוש מסחרי וחינוכי (CC0), מה שמונע בעיות משפטיות.\n• חיפוש נוח: אפשרות לחיפוש בעברית ובאנגלית ומציאת מדיה לפי צבעים או גודל.\n• איכות: הורדת קבצים ברזולוציות שונות בהתאם לצורך (מצגת קלה או הדפסת פוסטר).\n• סאונד: מאגר מוזיקת רקע ואפקטים קוליים לשימוש בסרטוני הדרכה ופרויקטים של תלמידים." },
-            { id: 12, title: "Unsplash", category: "מאגרי מדיה", driveUrl: "https://drive.google.com/file/d/1F-ZV_XWo3fQKpTRmCv1UAxb9kOL8HVc4/view?usp=sharing", siteUrl: "https://unsplash.com", description: "מאגר צילומי אמנותיים ואיכותיים ברזולוציה גבוהה.", 
-                info: "• צילום אמנותי: מאגר המבוסס על צלמים מקצועיים מרחבי העולם המשתפים את יצירותיהם.\n• אסתטיקה: התמונות מתאפיינות במראה 'אמנותי' ואיכותי במיוחד, מעולה למצגות השראה.\n• רקעים: תמונות בפורמט רחב המתאימות כרקעים למחשב או למצגות רחבות.\n• אוספים: אפשרות לחיפוש לפי קטגוריות נושאיות שנאצרו ע\"י עורכים (טבע, טכנולוגיה, אנשים).\n• שימוש חופשי: כל התמונות ניתנות להורדה ולשימוש ללא עלות וללא צורך במתן קרדיט (אם כי מומלץ)." }
+            { id: 1, title: "Padlet", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1EJkXEIy4E1De2FD1pdPY8Ux9jPEQIHe5/view?usp=sharing", siteUrl: "https://padlet.com", description: "לוח קיר דיגיטלי לריכוז רעיונות ותוצרים ויזואליים בזמן אמת.", info: "• ניהול סיעור מוחות כיתתי: כולם כותבים בו-זמנית על קיר אחד משותף.\n• איסוף תוצרי למידה: ריכוז תמונות, קבצים וקישורים שיצרו התלמידים.\n• הערכת עמיתים (Peer Assessment): התלמידים יכולים להגיב זה לזה.\n• ארגון מידע במבנה גמיש: ניתן לסדר כמפה, ציר זמן או קיר חופשי." },
+            { id: 2, title: "ThingLink", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/1_TS0ZEg3vJW2uPbbnO12vneIdTavgLz6/view?usp=sharing", siteUrl: "https://www.thinglink.com", description: "הפוך כל תמונה למפת למידה אינטראקטיבית עם נקודות מידע.", info: "• העשרת תמונות: הוספת נקודות חמות (Hotspots) הכוללות טקסט, אודיו, וידאו וקישורים.\n• סיורים וירטואליים: יצירת חווית למידה סוחפת באמצעות תמונות 360 מעלות.\n• 'מפות ידע': בניית סביבה שבה הלומד חוקר את החומר בקצב אישי.\n• הנגשת תוכן: שימוש בכלי Immersive Reader להקראת הטקסט." },
+            { id: 34, title: "Google Keep", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1gZaplTezjXfM3xSXFPeqb2HUfgWT8ery/view?usp=drive_link", siteUrl: "https://keep.google.com", description: "פנקס רשימות דיגיטלי לניהול רעיונות ותזכורות.", info: "• ארגון אישי: יצירת פתקיות צבעוניות ורשימות תיוג (To-Do Lists) לניהול משימות.\n• סנכרון מלא: המידע נגיש מהטלפון ומהמחשב בכל רגע ובזמן אמת.\n• מולטימדיה: הוספת תמונות, הקלטות קוליות ושרבוטים לפתקים.\n• חילוץ טקסט (OCR): צילום מסמך והפיכתו לטקסט חי הניתן לעריכה בגוגל דוקס." },
+            { id: 35, title: "Google Tasks", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1U-2v9ww4vafP6P4cDyUZ4Y2Jwdpk-GlM/view?usp=drive_link", siteUrl: "https://tasks.google.com", description: "ניהול משימות פשוט וממוקד המוטמע בתוך המייל והיומן.", info: "• ניהול זמן: יצירת רשימות משימות מהירות לניהול שוטף של העבודה.\n• שילוב עם Gmail: הפיכת אימיילים למשימות בלחיצת כפור.\n• שילוב עם Calendar: הגדרת תאריכי יעד למשימות, שיופיעו אוטומטית ביומן." },
+            { id: 36, title: "Google Sites", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1od4KE3XRaA_71InAjECTQnY864o-DZaK/view?usp=drive_link", siteUrl: "https://sites.google.com", description: "בניית אתרים פשוטה ואינטואיטיבית ללא צורך בכתיבת קוד.", info: "• מרכזי למידה: יצירת אתר המרכז את כל חומרי הלימוד והמשימות עבור נושא מסוים.\n• אתר כיתה: בניית פלטפורמה לתקשורת עם הורים ותלמידים.\n• פורטפוליו דיגיטלי: תלמידים בונים אתר אישי המציג את ההתקדמות והתוצרים שלהם.\n• ממשק גרירה והשלכה: הטמעה קלה של קבצי Drive וסרטוני YouTube." },
+            { id: 37, title: "Google Gemini", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1Jkq0NO9GQ2IgdfiWsdDPFv_ctPCoOfeh/view?usp=drive_link", siteUrl: "https://gemini.google.com", description: "עוזר בינה מלאכותית (AI) רב-תחומי ליצירת תוכן ומחקר.", info: "• סיעור מוחות פדגוגי: קבלת רעיונות למערכי שיעור יצירתיים ומשימות חקר.\n• כתיבת תוכן: ניסוח מיילים להורים או פישוט טקסטים מורכבים.\n• ניתוח נתונים: העלאת קבצים וקבלת סיכומים, ניתוח טבלאות ומציאת מגמות.\n• Imagen 3: יצירת איורים ותמונות מקוריות לשימוש במצגות ובחומרי לימוד." },
+            { id: 40, title: "Nano Banana", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1qaGQFcsYv12G32TNnCrdTmsuQuakLQ1U/view?usp=drive_link", siteUrl: "https://gemini.google.com", description: "המודל המתקדם של גוגל ליצירת תמונות מרהיבות מטקסט.", info: "• המחשה ויזואלית: יצירת תמונות ריאליסטיות או איורים המבוססים על תיאור מילולי.\n• שדרוג חומרי למידה: הוספת תוכן ויזואלי ייחודי למצגות, דפי עבודה ואתרי Sites.\n• פיתוח דמיון: תלמידים כותבים הנחיות (Prompts) כדי לראות איך התיאור שלהם הופך ליצירה.\n• התאמת סגנון: ניתן לבקש תמונות בסגנונות אמנותיים שונים (ציור שמן, קומיקס)." },
+            { id: 41, title: "Google Gems", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1Jkq0NO9GQ2IgdfiWsdDPFv_ctPCoOfeh/view?usp=drive_link", siteUrl: "https://gemini.google.com/gems", description: "בניית מומחי AI מותאמים אישית לצרכים פדגוגיים ספציפיים.", info: "• מומחים נושאיים: יצירת 'ג'ם' המתמחה במקצוע מסוים (למשל: בוט המתמחה בפיזיקה).\n• הנחיות קבועות: הגדרת 'חוקי משחק' ל-AI כך שתמיד יענה בטון מסוים.\n• עוזר הוראה: בניית בוט שעוזר למורה בבדיקת עבודות לפי מחוון ספציפי.\n• שיתוף: ניתן לשתף את ה-Gems שנוצרו עם מורים אחרים בבית הספר." },
+            { id: 42, title: "Google Earth", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1eNzEVxvUDarurT1q1Op0zSSZLTmBQ2Fe/view?usp=drive_link", siteUrl: "https://earth.google.com", description: "חקר העולם בתלת-ממד, סיורים וירטואליים ומפות היסטוריות.", info: "• חקר גיאוגרפי: סיור בכל נקודה על פני הגלובוס בתצוגת תלת-ממד מרהיבה.\n• Voyager: גישה לסיורים לימודיים מובנים שהוכנו ע\"י מומחים בנושאי טבע והיסטוריה.\n• Timelapse: צפייה בשינויים שעבר כדור הארץ ב-40 השנים האחרונות.\n• פרויקטים: תלמידים יכולים ליצור 'סיפור מפה' הכולל נקודות ציון עם טקסט ותמונות." },
+            { id: 38, title: "Google Vids", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/18OTH4Y6Q5S59IR2pZciMtWMEEO2UCv1g/view?usp=drive_link", siteUrl: "https://vids.google.com", description: "אפליקציה ליצירת סרטוני עבודה והדרכה מבוססת בינה מלאכותית.", info: "• יצירת סרטונים מהירה: ה-AI עוזר לבנות תסריט (Script) וסטוריבורד על סמך נושא.\n• עריכה פשוטה: ממשק המבוסס על שקפים מה שהופך את העריכה לקלה במיוחד.\n• קריינות (Voiceover): הוספת קריינות אוטומטית במגוון קולות או הקלטה עצמית.\n• שיתוף בטוח: הסרטונים נשמרים ב-Drive וניתנים לשיתוף מוגן בתוך הארגון." },
+            { id: 39, title: "NotebookLM", category: "כלי גוגל", driveUrl: "https://drive.google.com/file/d/1rugVVLRSUFbrk--CjkZOraXCWlzalPb3/view?usp=drive_link", siteUrl: "https://notebooklm.google.com", description: "עוזר מחקר אישי מבוסס AI המשתמש במסמכים שלכם כמקור ידע.", info: "• מחקר מבוסס מקורות: בניגוד ל-AI כללי, NotebookLM עונה רק על סמך המסמכים שהעליתם.\n• סיכומים חכמים: יצירת סיכומי למידה, מדריכי לימוד ושאלות חזרה אוטומטיות מהחומר.\n• פודקאסט שמע: הפיכת מסמכים לשיחה קולית מרתקת בין שני קריינים (Audio Overview).\n• דיוק אקדמי: הכלי מספק הערות שוליים המפנות בדיוק למקום במסמך שממנו נלקח המידע." },
+            { id: 27, title: "אורט קמפוס", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/1yjxfdbD3IVMULEEtEGH86pjSzf0lUFg2/view?usp=sharing", siteUrl: "https://campus.ort.org.il/", description: "הקמפוס הווירטואלי של רשת אורט. פלטפורמה לניהול למידה.", info: "• קורסים דיגיטליים: גישה למאות קורסים המותאמים לתכנית הלימודים.\n• Moodle מבוסס: מערכת לניהול למידה (LMS) המאפשרת הגשת משימות ומעקב אחר ציונים.\n• אינטגרציה: כניסה אחידה (SSO) באמצעות חשבון אורט לכל המערכות.\n• מרחב מורה: יכולת המורה לראות את התקדמות התלמידים ולתת משוב." },
+            { id: 3, title: "Mentimeter", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1ocybR8PcGro2Ue6GyS4a8FgwhDWB9Gzx/view?usp=sharing", siteUrl: "https://www.mentimeter.com", description: "מצגות אינטראקטיביות לשיתוף קהל ומשוב חי במגוון סקרים.", info: "• מעורבות: הפיכת הקהל ממשתתף פסיבי לאקטיבי באמצעות שאלות ותגובות בלייב.\n• ענני מילים (Word Clouds): כלי מצוין לסיעור מוחות המציג את המילים הנפוצות.\n• סקרים ובחנים: קיום הצבעות או בחנים מהירים בתוך המצגת עם תוצאות מיידיות.\n• אנונימיות: מאפשר לתלמידים ביישנים להביע את דעתם ללא חשש." },
+            { id: 4, title: "Canva", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1cDj4dBegxxz_0x3Q0n4_QaefX196Gqy8/view?usp=sharing", siteUrl: "https://www.canva.com", description: "פלטפורמת עיצוב גרפי ליצירת מצגות, כרזות ותוכן ויזואלי.", info: "• עיצוב מקצועי בקלות: שימוש באלפי תבניות מוכנות לפוסטרים, מצגות ודפי עבודה.\n• Canva for Education: גישה מלאה לכל הכלים המתקדמים בחינם למורים ותלמידים.\n• עבודה שיתופית: תלמידים יכולים לעבוד על אותו עיצוב בו-זמנית מבתיהם.\n• בינה מלאכותית: כלי Magic Studio להסרת רקע ויצירת תמונות.", guideUrl: "https://www.canva.com/design/DAFRIjc8RoE/ByM_PVHabX08_95vrE-03A/view?utm_content=DAFRIjc8RoE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc086b04346" },
+            { id: 18, title: "Photopea", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1w1bpkfQJyLOPvlsAG6YHxabKc39PLOyv/view?usp=sharing", siteUrl: "https://www.photopea.com", description: "עורך תמונות מקצועי וחינמי בדפדפן, תואם פוטושופ.", info: "• עריכה מקצועית: עבודה עם שכבות (Layers), מסכות ופילטרים מתקדמים.\n• תאימות קבצים: תמיכה מלאה בקבצי PSD, AI ו-PDF.\n• חינמי לחלוטין: כל היכולות של תוכנות עיצוב יקרות בתוך הדפדפן ללא צורך בהתקנה.\n• לימודי עיצוב: כלי מושלם ללימוד עקרונות הגרפיקה המקצועית בבית הספר." },
+            { id: 33, title: "Figma", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1K5kVSCYpnKUUf8KtB-q8EOvODL5s8jOk/view?usp=drive_link", siteUrl: "https://www.figma.com", description: "פלטפורמה מקצועית לעיצוב ממשקים (UI/UX) ושיתוף פעולה ויזואלי.", info: "• עיצוב מוצר: בניית אבות-טיפוס (Prototypes) של אפליקציות ואתרים.\n• FigJam: לוח לבן שיתופי (Whiteboard) המיועד לסיעור מוחות ומיפוי תהליכים.\n• שיתופיות בזמן אמת: עבודה של עשרות תלמידים יחד על אותו קובץ עיצוב.\n• חדשנות: הכלי המוביל בעולם כיום לעיצוב חוויית משתמש ופיתוח רעיונות." },
+            { id: 31, title: "Tinkercad", category: "עיצוב ויצירה", driveUrl: "https://drive.google.com/file/d/1ZbsYfD5GEP298ccEJWdb3UdsPKDGjsyD/view?usp=sharing", siteUrl: "https://www.tinkercad.com", description: "פלטפורמה לתכנון בתלת-ממד ועיצוב מעגלים אלקטרוניים.", info: "• עיצוב 3D: בניית מודלים תלת-ממדיים המיועדים להדפסת תלת-ממד.\n• סימולציית מעגלים: תכנון ובדיקת מעגלים אלקטרוניים הכוללים ארדואינו (Arduino).\n• Codeblocks: יצירת צורות גיאומטריות באמצעות כתיבת קוד בלוקים.\n• לימוד פיזיקה: כלי מצוין להמחשת מושגים בחשמל והנדסה בצורה בטוחה." },
+            { id: 6, title: "Genially", category: "אינטראקטיביות", driveUrl: "https://drive.google.com/file/d/11lWrpl9ZwvyuED-13lEyh06SIAOHTaAx/view?usp=sharing", siteUrl: "https://genial.ly", description: "יצירת מצגות, משחקים ואינפוגרפיקות אינטראקטיביות.", info: "• גיימיפיקציה: בניית חדרי בריחה דיגיטליים (Escape Rooms) ומשחקי למידה.\n• אינפוגרפיקות חיות: יצירת תרשימים שמתעוררים לחיים בלחיצה או בריחוף עכבר.\n• מצגות אינטראקטיביות: המצגת הופכת לאתר שבו המשתמש בוחר את הנתיב שלו.\n• הטמעה: ניתן להטמיע את התוצרים בקלות ב-Classroom או ב-Sites." },
+            { id: 5, title: "Kahoot!", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1v5jVMrb3jEtjNpRVX7Qs8eDKrtb5zij8/view?usp=sharing", siteUrl: "https://kahoot.com", description: "הפוך למידה למשחק דרך חידונים תחרותיים.", info: "• למידה חווייתית: הפיכת בדיקת הידע לתחרות מותחת ומהנה המעוררת את כל הכיתה.\n• חידונים מהירים: יצירת שאלות טריוויה עם מוזיקה ואפקטים קצביים.\n• בדיקת הבנה: כלי מצוין לסיכום פרק או בדיקת ידע קודם.\n• דוחות: קבלת ניתוח מפורט בסוף המשחק המראה היכן התלמידים התקשו." },
+            { id: 13, title: "Quizizz", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1uZ1NXKhmRR5ZQKnpuhGDay1HwLDXdSwL/view?usp=sharing", siteUrl: "https://quizizz.com", description: "חידונים בקצב אישי הכוללים דוחות התקדמות וממים משעשעים.", info: "• קצב אישי: התלמידים עונים על השאלות בקצב שלהם מהמכשיר האישי.\n• שיעור אינטראקטיבי: שילוב שקפי תוכן יחד עם שאלות בחינה בתוך מצגת אחת.\n• הנגשה: הכלי כולל הקראת שאלות בקול לטובת תלמידים עם קשיי קריאה.\n• ממים והומור: שילוב תמונות משעשעות לאחר כל תשובה להגברת ההנאה." },
+            { id: 16, title: "Baamboozle", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1W0FoGzCh50iKb1ko4UD7R5WKoC0CSUlN/view?usp=sharing", siteUrl: "https://www.baamboozle.com", description: "משחקי צוותים ללא צורך במכשירים אישיים, מושלם לחימום כיתתי.", info: "• פשטות: אין צורך שלכל תלמיד יהיה טלפון – כולם משחקים מול המסך המרכזי.\n• גיבוש כיתתי: חלוקת הכיתה לצוותים המתחרים זה בזה ומעודדים זה את זה.\n• אלמנט ההפתעה: 'קלפי כוח' שיכולים להוסיף או להוריד נקודות באופן מפתיע.\n• יצירה מהירה: יצירת משחק תוך דקה אחת בלבד באמצעות שאלות פשוטות." },
+            { id: 17, title: "Nearpod", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1vZDlkiWFT-QzLBNmWiemms6ZxTipCiCz/view?usp=sharing", siteUrl: "https://nearpod.com", description: "שיעורים אינטראקטיביים המשלבת מצגות, משחקים ומציאות מדומה.", info: "• שליטה מלאה: המורה מעביר את השקפים במכשירים של כל התלמידים בו-זמנית.\n• מגוון פעילויות: ציור על המסך, שאלות פתוחות, התאמת זוגות ושיתוף לוח מודעות.\n• VR: יציאה לסיורים וירטואליים באתרים מסביב לעולם ישירות מהמצגת.\n• Time to Climb: משחק תחרותי המעוצב כמרוץ במעלה ההר לסיכום השיעור." },
+            { id: 20, title: "Flippity", category: "משחקים", driveUrl: "https://drive.google.com/file/d/1EquhXBSUh1gzf8-G08hjNjJmq-H6yOoU/view?usp=drive_link", siteUrl: "https://www.flippity.net", description: "הפוך גליונות גוגל למשחקים כמו גלגלי מזל וחדרי בריחה.", info: "• פתרון טכנולוגי פשוט: הכנסת נתונים לתוך גליון Google Sheets הופכת אותם למשחק.\n• גלגל מזל: כלי לבחירה אקראית של שמות תלמידים להשתתפות בשיעור.\n• כרטיסיות זיכרון: למידת מושגים ושפות באמצעות כרטיסיות אינטראקטיביות.\n• מנעולי פריצה: יצירת חדרי בריחה דיגיטליים המבוססים על פתרון חידות טקסטואליות." },
+            { id: 10, title: "Wordwall", category: "משחקים", driveUrl: "https://drive.google.com/file/d/16Kaql2LZyy9-VCAUuoOBBFyEMwqMmLAV/view?usp=drive_link", siteUrl: "https://wordwall.net", description: "יצירת פעילויות מותאמות אישית במגוון תבניות משחק.", info: "• מגוון תבניות: המרת אותו תוכן למגוון משחקים (מבוך, התאמת זוגות, גלגל מזל).\n• המרה בלחיצה: ניתן להחליף את סוג המשחק בכל רגע מבלי להקליד מחדש.\n• גרסאות להדפסה: ניתן להוריד את המשחקים כדפי עבודה בפורמט PDF לשימוש פיזי.\n• לוח תוצאות: ניהול טבלת שיאים המעודדת את התלמידים לחזור על המשימה." },
+            { id: 11, title: "Classroomscreen", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1pJDqx_K1ZKV-bEtRGHj6Sx8YUgcwuwC6/view?usp=sharing", siteUrl: "https://classroomscreen.com", description: "ניהול מסך הכיתה עם כלים כמו טיימר, רמות רעש וקודי QR.", info: "• ארגון המסך: הצגת כל ההנחיות והכלים על מסך אחד מעוצב (טיימר, לוח, קודי QR).\n• מד רעש: כלי ויזואלי המראה לתלמידים את עוצמת הדיבור שלהם ומסייע בשקט.\n• שפת סימנים ויזואלית: הצגת סמלים המגדירים את אופן העבודה (שקט, בזוגות).\n• ניהול זמן: שעון חול וטיימר בולטים המסייעים בניהול זמן המשימות בכיתה." },
+            { id: 32, title: "Classe", category: "שיתופיות", driveUrl: "https://drive.google.com/file/d/1-A4JjSMc5G3XhFszhUiPaEdp7V0P7UZh/view?usp=sharing", siteUrl: "https://www.classe.world", description: "מערכת לניהול כיתה חכם, הכוללת מפות הושבה וניהול למידה.", info: "• מפת הושבה דינמית: בניית סידור ישיבה חכם המבוסס על צרכים לימודיים וחברתיים.\n• חלוקה לקבוצות: יצירת צוותי עבודה הומוגניים או הטרוגניים בלחיצת כפתור אחת.\n• מעקב השתתפות: סימון השתתפות והתנהגות תלמידים במהלך השיעור בצורה דיגיטלית.\n• ניתוח נתונים: קבלת תובנות על הדינמיקה הכיתתית והתקדמות התלמידים." },
+            { id: 7, title: "remove.bg", category: "כלים שעושים חיים קלים", driveUrl: "", siteUrl: "https://www.remove.bg", description: "הסרת רקע מתמונות בתוך שניות בעזרת בינה מלאכותית.", info: "• הסרה אוטומטית: ניקוי הרקע מכל תמונה בתוך שניות ללא צורך בידע גרפי.\n• עיצוב נקי: יצירת קבצי PNG שקופים שמשתלבים מצוין בתוך מצגות וכרזות.\n• שדרוג תוצרי למידה: מאפשר לתלמידים ליצור פרויקטים גרפיים שנראים מקצועיים.\n• חיסכון בזמן: הכלי חוסך למורה שעות של עבודה ידנית בתוכנות עריכה מורכבות." },
+            { id: 8, title: "iLovePDF", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1KOA268-vL0hoBkxBhtFtyqWitg5Oz5kY/view?usp=sharing", siteUrl: "https://www.ilovepdf.com", description: "סט כלים לניהול, המרה ועריכת קבצי PDF בקלות.", info: "• מיזוג ופיצול: חיבור מספר קבצי PDF לקובץ אחד או פירוק קובץ למשימות נפרדות.\n• המרת קבצים: הפיכת PDF ל-Word, PowerPoint או Excel ולהיפך לצורך עריכה.\n• דחיסה (Compress): הקטנת גודל הקובץ כדי שניתן יהיה לשלוח אותו בקלות במייל.\n• עריכה: הוספת טקסט, תמונות, חתימות ומספרי עמודים לקבצי PDF קיימים." },
+            { id: 28, title: "123Apps", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1LufYcD-Ok5nuWM_inhMN612JbjHmjEZl/view?usp=sharing", siteUrl: "https://123apps.com/", description: "סט כלים מקוון לעריכת וידאו, אודיו וניהול PDF.", info: "• עריכת וידאו: חיתוך סרטונים, הוספת כתוביות וסיבוב התמונה ללא התקנת תוכנה.\n• עריכת אודיו: חיתוך קטעי קול והפיכת וידאו (MP4) לקבצי שמע (MP3).\n• הקלטה: הקלטת מסך המחשב להכנת סרטוני הדרכה או הקלטת קול ישירות מהדפדפן.\n• המרת פורמטים: המרה בין עשרות סוגי קבצים (תמונות, מסמכים, ZIP)." },
+            { id: 30, title: "TinyWow", category: "כלים שעושים חיים קלים", driveUrl: "https://drive.google.com/file/d/1PgRcU5CiKHKVJFKgTCjT4vCDFbPPHeMW/view?usp=drive_link", siteUrl: "https://tinywow.com/", description: "מאות כלים חינמיים לטיפול בקבצים, תמונות, וידאו וכתיבה.", info: "• כלי AI: כתיבת טקסטים, שיפור ניסוחים ויצירת פסקאות שלמות בעזרת בינה מלאכותית.\n• עריכת תמונות: הסרת אלמנטים לא רצויים מתמונות וטשטוש רקעים.\n• ניהול PDF: הוספת חתימה, מיזוג, פיצול והמרת טבלאות PDF ל-Excel בצורה חכמה.\n• חילוץ טקסט (OCR): הפיכת תמונות או מסמכים סרוקים לטקסט חי הניתן לעריכה." },
+            { id: 9, title: "Pixabay", category: "מאגרי מדיה", driveUrl: "https://drive.google.com/file/d/1S_HBANOnFfFrMjtJ_q7l5tf_JKqu2s1W/view?usp=sharing", siteUrl: "https://pixabay.com", description: "מאגר תמונות וסרטונים לשימוש חופשי ללא זכויות יוצרים.", info: "• מאגר ענק: גישה למיליוני תמונות, איורים, וקטורים, סרטונים ומוזיקה באיכות גבוהה.\n• זכויות יוצרים: כל המדיה בחינם לשימוש מה שמונע בעיות משפטיות.\n• חיפוש נוח: אפשרות לחיפוש בעברית ובאנגלית ומציאת מדיה לפי צבעים או גודל.\n• סאונד: מאגר מוזיקת רקע ואפקטים קוליים לשימוש בסרטוני הדרכה ופרויקטים." },
+            { id: 12, title: "Unsplash", category: "מאגרי מדיה", driveUrl: "https://drive.google.com/file/d/1F-ZV_XWo3fQKpTRmCv1UAxb9kOL8HVc4/view?usp=sharing", siteUrl: "https://unsplash.com", description: "מאגר צילומי אמנותיים ואיכותיים ברזולוציה גבוהה.", info: "• צילום אמנותי: מאגר המבוסס על צלמים מקצועיים מרחבי העולם המשתפים את יצירותיהם.\n• אסתטיקה: התמונות מתאפיינות במראה 'אמנותי' ואיכותי במיוחד, מעולה למצגות השראה.\n• רקעים: תמונות בפורמט רחב המתאימות כרקעים מרהיבים למחשב או למצגות רחבות.\n• חימוש חופשי: כל התמונות ניתנות להורדה ולשימוש ללא עלות וללא צורך במתן קרדיט." }
         ];
 
         const grid = document.getElementById('presentationsGrid');
@@ -315,16 +237,15 @@
 
         function renderFilters() {
             const categories = Object.keys(categoryMap);
-            const buttonsHtml = categories.map(cat => {
+            const html = categories.map(cat => {
                 const isActive = activeCategory === cat;
                 return `<button onclick="setFilter('${cat}')" class="filter-btn ${isActive ? 'active-filter' : ''}">
                     <span class="category-num-badge" style="background: ${categoryStyles[cat].color}">${categoryMap[cat]}</span>
                     ${cat}
                 </button>`;
             }).join('');
-
-            desktopFilterBar.innerHTML = buttonsHtml;
-            mobileModalList.innerHTML = `<button onclick="setFilter(null)" class="filter-btn w-full mb-2">כל הכלים</button>` + buttonsHtml;
+            document.getElementById('desktopFilterBar').innerHTML = html;
+            document.getElementById('mobileModalList').innerHTML = `<button onclick="setFilter(null)" class="filter-btn w-full mb-2">כל הכלים</button>` + html;
             mobileCategoryLabel.innerText = activeCategory || "כל הקטגוריות";
             totalBadge.innerText = presentations.length;
         }
@@ -340,12 +261,10 @@
             grid.innerHTML = filtered.map(p => {
                 const style = categoryStyles[p.category] || categoryStyles['default'];
                 const darkerCenter = hexToRgba(style.color, 0.9).replace(/rgba\((\d+),\s*(\d+),\s*(\d+),/, (m, r, g, b) => `rgba(${Math.floor(r/6)}, ${Math.floor(g/6)}, ${Math.floor(b/6)},`);
+                const cardBg = isLightBlueMode ? `background: ${style.color}` : `background: radial-gradient(circle, ${darkerCenter} 0%, ${hexToRgba(style.color, 0.45)} 100%)`;
                 
-                const finalCenter = isLightBlueMode ? style.color : darkerCenter;
-                const finalEdge = isLightBlueMode ? style.color : hexToRgba(style.color, 0.45);
-
                 return `
-                <div class="card-3d p-8 flex flex-col justify-between" style="--category-color: ${style.color}; --card-gradient-center: ${finalCenter}; --card-gradient-edge: ${finalEdge};">
+                <div class="card-3d p-8 flex flex-col justify-between" style="${cardBg}">
                     <div>
                         <div class="category-chip" style="border-right-color: ${style.color}">
                             <span class="category-num-badge" style="background: ${style.color}">${categoryMap[p.category] || 0}</span>
